@@ -27,6 +27,7 @@ desktop: a tool to set the desktop picture")
 """)
 }
 
+// allows easy printing to stdErr
 // from https://gist.github.com/algal/0a9aa5a4115d86d5cc1de7ea6d06bd91
 extension FileHandle : TextOutputStream {
     public func write(_ string: String) {
@@ -42,7 +43,10 @@ func errprint(_ error : String) {
 
 func parseOption(_ arg: String) -> ScreenOption? {
     var option : ScreenOption?
-    if arg == "all" {
+    if arg == "help" {
+        usage()
+        exit(0)
+    } else if arg == "all" {
         option = .all
     } else if arg == "main" {
         option = .main
@@ -68,7 +72,16 @@ func parseFilePath(_ path : String) -> URL? {
         exit(1)
     }
     return nil
+}
 
+func desktopImagePath(_ screen : NSScreen) -> String {
+    let ws = NSWorkspace.shared
+    return ws.desktopImageURL(for: screen)!.path
+}
+
+func setDesktopImage(_ url : URL, for screen : NSScreen) {
+    let ws = NSWorkspace.shared
+    try! ws.setDesktopImageURL(url, for: screen)
 }
 
 func main() {
@@ -101,24 +114,32 @@ func main() {
     }
     
     if fileURL == nil {
-        // display the path
-        let ws = NSWorkspace.shared
+        // display the desktop image path
         switch screenOption {
         case .all:
             for screen in NSScreen.screens {
-                print(ws.desktopImageURL(for: screen)!.path)
+                print(desktopImagePath(screen))
             }
         case .main:
-            print(ws.desktopImageURL(for: NSScreen.main!)!.path)
+            print(desktopImagePath(NSScreen.main!))
         case .index(let i):
             let screen = NSScreen.screens[i]
-            print(ws.desktopImageURL(for: screen)!.path)
+            print(desktopImagePath(screen))
         }
-        
     } else {
-        
+        // set the desktop image
+        switch screenOption {
+        case .all:
+            for screen in NSScreen.screens {
+                setDesktopImage(fileURL!, for: screen)
+            }
+        case .main:
+            setDesktopImage(fileURL!, for: NSScreen.main!)
+        case .index(let i):
+            let screen = NSScreen.screens[i]
+            setDesktopImage(fileURL!, for: screen)
+        }
     }
-    
 }
 
 main()
