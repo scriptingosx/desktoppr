@@ -57,6 +57,7 @@ func parseOption(argument: String) -> ScreenOption? {
     case "main":
         option = .main
     default:
+        // is the argument a number?
         if let index = Int(argument) {
             if index < NSScreen.screens.count {
                 option = .index(index)
@@ -64,12 +65,12 @@ func parseOption(argument: String) -> ScreenOption? {
                 errprint("No screen with index \(index)!")
                 exit(1)
             }
+        // all else failed, give up
         } else {
             usage()
             exit(1)
         }
-    
-}
+    }
     return option
 }
 
