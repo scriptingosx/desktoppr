@@ -65,10 +65,6 @@ func parseOption(argument: String) -> ScreenOption? {
                 errprint("No screen with index \(index)!")
                 exit(1)
             }
-        // all else failed, give up
-        } else {
-            usage()
-            exit(1)
         }
     }
     return option
