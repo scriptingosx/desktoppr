@@ -9,6 +9,8 @@
 import Foundation
 import AppKit
 
+let version = "0.1"
+
 enum ScreenOption {
     case all
     case main
@@ -43,21 +45,31 @@ func errprint(_ error : String) {
 
 func parseOption(argument: String) -> ScreenOption? {
     var option : ScreenOption?
-    if argument == "help" {
+    switch argument {
+    case "help":
         usage()
         exit(0)
-    } else if argument == "all" {
+    case "version":
+        print(version)
+        exit(0)
+    case "all":
         option = .all
-    } else if argument == "main" {
+    case "main":
         option = .main
-    } else if let index = Int(argument) {
-        if index < NSScreen.screens.count {
-            option = .index(index)
+    default:
+        if let index = Int(argument) {
+            if index < NSScreen.screens.count {
+                option = .index(index)
+            } else {
+                errprint("No screen with index \(index)!")
+                exit(1)
+            }
         } else {
-            errprint("No screen with index \(index)!")
+            usage()
             exit(1)
         }
-    }
+    
+}
     return option
 }
 
