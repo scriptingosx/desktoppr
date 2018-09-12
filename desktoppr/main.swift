@@ -1,6 +1,6 @@
 //
 //  main.swift
-//  desktop
+//  desktoppr
 //
 //  Created by Armin Briegel on 2018-09-06.
 //  Copyright © 2018 Scripting OS X. All rights reserved.
@@ -17,8 +17,8 @@ enum ScreenOption {
 
 func usage() {
     errprint("""
-desktop: a tool to set the desktop picture")
-  usage: desktop [all|main|N] [/path/to/image]")
+desktoppr: a tool to set the desktop picture")
+  usage: desktoppr [all|main|N] [/path/to/image]")
          all:        all screens (default)
          main:       main screen
          N: (number) screen index

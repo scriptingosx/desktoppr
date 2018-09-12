@@ -23,7 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C678CB5E21415F31006AA69F /* desktop */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = desktop; sourceTree = BUILT_PRODUCTS_DIR; };
+		C678CB5E21415F31006AA69F /* desktoppr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = desktoppr; sourceTree = BUILT_PRODUCTS_DIR; };
 		C678CB6121415F31006AA69F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,7 +41,7 @@
 		C678CB5521415F31006AA69F = {
 			isa = PBXGroup;
 			children = (
-				C678CB6021415F31006AA69F /* desktop */,
+				C678CB6021415F31006AA69F /* desktoppr */,
 				C678CB5F21415F31006AA69F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,25 +49,25 @@
 		C678CB5F21415F31006AA69F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C678CB5E21415F31006AA69F /* desktop */,
+				C678CB5E21415F31006AA69F /* desktoppr */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C678CB6021415F31006AA69F /* desktop */ = {
+		C678CB6021415F31006AA69F /* desktoppr */ = {
 			isa = PBXGroup;
 			children = (
 				C678CB6121415F31006AA69F /* main.swift */,
 			);
-			path = desktop;
+			path = desktoppr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C678CB5D21415F31006AA69F /* desktop */ = {
+		C678CB5D21415F31006AA69F /* desktoppr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C678CB6521415F31006AA69F /* Build configuration list for PBXNativeTarget "desktop" */;
+			buildConfigurationList = C678CB6521415F31006AA69F /* Build configuration list for PBXNativeTarget "desktoppr" */;
 			buildPhases = (
 				C678CB5A21415F31006AA69F /* Sources */,
 				C678CB5B21415F31006AA69F /* Frameworks */,
@@ -77,9 +77,9 @@
 			);
 			dependencies = (
 			);
-			name = desktop;
+			name = desktoppr;
 			productName = desktop;
-			productReference = C678CB5E21415F31006AA69F /* desktop */;
+			productReference = C678CB5E21415F31006AA69F /* desktoppr */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -97,7 +97,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C678CB5921415F31006AA69F /* Build configuration list for PBXProject "desktop" */;
+			buildConfigurationList = C678CB5921415F31006AA69F /* Build configuration list for PBXProject "desktoppr" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -109,7 +109,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C678CB5D21415F31006AA69F /* desktop */,
+				C678CB5D21415F31006AA69F /* desktoppr */,
 			);
 		};
 /* End PBXProject section */
@@ -264,7 +264,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C678CB5921415F31006AA69F /* Build configuration list for PBXProject "desktop" */ = {
+		C678CB5921415F31006AA69F /* Build configuration list for PBXProject "desktoppr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C678CB6321415F31006AA69F /* Debug */,
@@ -273,7 +273,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C678CB6521415F31006AA69F /* Build configuration list for PBXNativeTarget "desktop" */ = {
+		C678CB6521415F31006AA69F /* Build configuration list for PBXNativeTarget "desktoppr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C678CB6621415F31006AA69F /* Debug */,
