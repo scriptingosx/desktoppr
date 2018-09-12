@@ -41,16 +41,16 @@ func errprint(_ error : String) {
     print(error, to:&standardError)
 }
 
-func parseOption(_ arg: String) -> ScreenOption? {
+func parseOption(argument: String) -> ScreenOption? {
     var option : ScreenOption?
-    if arg == "help" {
+    if argument == "help" {
         usage()
         exit(0)
-    } else if arg == "all" {
+    } else if argument == "all" {
         option = .all
-    } else if arg == "main" {
+    } else if argument == "main" {
         option = .main
-    } else if let index = Int(arg) {
+    } else if let index = Int(argument) {
         if index < NSScreen.screens.count {
             option = .index(index)
         } else {
@@ -61,7 +61,7 @@ func parseOption(_ arg: String) -> ScreenOption? {
     return option
 }
 
-func parseFilePath(_ path : String) -> URL? {
+func parseURL(path : String) -> URL? {
     let fm = FileManager.default
     let cwd = URL(fileURLWithPath: fm.currentDirectoryPath)
     let url = URL(fileURLWithPath: path, relativeTo: cwd)
@@ -74,40 +74,41 @@ func parseFilePath(_ path : String) -> URL? {
     return nil
 }
 
-func desktopImagePath(_ screen : NSScreen) -> String {
+func desktopImagePath(for screen : NSScreen) -> String {
     let ws = NSWorkspace.shared
     return ws.desktopImageURL(for: screen)!.path
 }
 
-func setDesktopImage(_ url : URL, for screen : NSScreen) {
+func setDesktopImage(url : URL, for screen : NSScreen) {
     let ws = NSWorkspace.shared
     try! ws.setDesktopImageURL(url, for: screen)
 }
 
 func main() {
-    let arguments = CommandLine.arguments
+    // first argument is always path to binary, ignore
+    let arguments = CommandLine.arguments.dropFirst()
     
     var screenOption = ScreenOption.all
     var fileURL : URL?
     
     switch arguments.count {
-    case 1:
+    case 0:
         screenOption = ScreenOption.all
-    case 2:
-        if let option = parseOption(arguments[1]) {
+    case 1:
+        if let option = parseOption(argument: arguments[1]) {
             screenOption = option
         } else {
-            fileURL = parseFilePath(arguments[1])
+            fileURL = parseURL(path: arguments[1])
         }
-    case 3:
-        if let option = parseOption(arguments[1]) {
+    case 2:
+        if let option = parseOption(argument: arguments[1]) {
             screenOption = option
         } else {
             errprint("cannot parse \(arguments[1])")
             usage()
             exit(1)
         }
-        fileURL = parseFilePath(arguments[2])
+        fileURL = parseURL(path: arguments[2])
     default:
         usage()
         exit(1)
@@ -118,26 +119,26 @@ func main() {
         switch screenOption {
         case .all:
             for screen in NSScreen.screens {
-                print(desktopImagePath(screen))
+                print(desktopImagePath(for: screen))
             }
         case .main:
-            print(desktopImagePath(NSScreen.main!))
+            print(desktopImagePath(for: NSScreen.main!))
         case .index(let i):
             let screen = NSScreen.screens[i]
-            print(desktopImagePath(screen))
+            print(desktopImagePath(for: screen))
         }
     } else {
         // set the desktop image
         switch screenOption {
         case .all:
             for screen in NSScreen.screens {
-                setDesktopImage(fileURL!, for: screen)
+                setDesktopImage(url: fileURL!, for: screen)
             }
         case .main:
-            setDesktopImage(fileURL!, for: NSScreen.main!)
+            setDesktopImage(url: fileURL!, for: NSScreen.main!)
         case .index(let i):
             let screen = NSScreen.screens[i]
-            setDesktopImage(fileURL!, for: screen)
+            setDesktopImage(url: fileURL!, for: screen)
         }
     }
 }
