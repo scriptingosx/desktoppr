@@ -31,8 +31,8 @@ enum ScreenOption {
 
 func usage() {
     errprint("""
-desktoppr: a tool to set the desktop picture")
-  usage: desktoppr [all|main|N] [/path/to/image]")
+desktoppr: a tool to set the desktop picture
+  usage: desktoppr [all|main|N] [/path/to/image]
          all:        all screens (default)
          main:       main screen
          N: (number) screen index
