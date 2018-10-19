@@ -21,7 +21,7 @@
 import Foundation
 import AppKit
 
-let version = "0.1"
+let version = "0.2"
 
 enum ScreenOption {
     case all
@@ -133,6 +133,11 @@ func main() {
     default:
         usage()
         exit(1)
+    }
+    
+    // display warning if effective user is root
+    if ProcessInfo.processInfo.userName == "root" {
+        errprint("desktoppr is running as root. This is probably not what you are intending. To set the desktop picture  for a user, desktoppr needs to run as that user.")
     }
     
     if fileURL == nil {
