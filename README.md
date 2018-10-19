@@ -42,7 +42,7 @@ $ desktoppr 1 /Library/Desktop Pictures/LyricalGangster.jpg
 $ desktoppr 2 /Library/Desktop Pictures/MrOfficer.jpg
 ```
 
-You can get the code for `desktoppr` on my Github page and an installer [here](../../releases/latest). The installer pkg will install the tool in `/usr/local/bin`. When you want to run it from a management script it is safest to include the entire path:
+You can get the code for `desktoppr` on my Github page and an installer [here](https://github.com/scriptingosx/desktoppr/releases). The installer pkg will install the tool in `/usr/local/bin`. When you want to run it from a management script it is safest to include the entire path:
 
 ```
 /usr/local/bin/desktoppr "/Library/Desktop Pictures/BoringBlueDesktop.png"
