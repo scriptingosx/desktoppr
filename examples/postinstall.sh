@@ -9,6 +9,12 @@
 picturepath="/Library/Desktop Pictures/BoringBlueDesktop.png"
 
 
+# only run when installing on System Volume
+if [[ $3 != "/" ]]; then
+    echo "Not installing on /, not setting desktop"
+    exit 0
+fi
+
 # verify the image exists
 if [[ ! -f "$picturepath" ]]; then
     echo "no file at $picturepath, exiting"
