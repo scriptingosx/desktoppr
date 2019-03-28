@@ -135,7 +135,7 @@ func main() {
         exit(1)
     }
     
-    // display warning if effective user is root
+    // display warning if running as root
     if ProcessInfo.processInfo.userName == "root" {
         errprint("desktoppr is running as root. This is probably not what you are intending. To set the desktop picture  for a user, desktoppr needs to run as that user.")
     }
