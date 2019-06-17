@@ -97,3 +97,8 @@ notarizefile "$pkgpath" "$identifier"
 echo "## Stapling $pkgpath"
 xcrun stapler staple "$pkgpath"
 
+echo '## Done!'
+
+exit 0
+
+
