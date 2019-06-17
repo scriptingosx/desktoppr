@@ -92,7 +92,6 @@ func parseURL(path : String) -> URL? {
         errprint("no file: \(path)")
         exit(1)
     }
-    return nil
 }
 
 func desktopImagePath(for screen : NSScreen) -> String {
