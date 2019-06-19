@@ -53,7 +53,10 @@ notarizefile() { # $1: path to file to notarize, $2: identifier
     done
     
     if [[ $request_status != "success" ]]; then
-        echo "could not notarize $filepath"
+        echo "## could not notarize $filepath"
+        xcrun altool --notarization-info "$requestUUID" \
+                     --username "$dev_account" \
+                     --password "@keychain:$dev_keychain_label"
         exit 1
     fi
     
