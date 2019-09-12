@@ -27,7 +27,7 @@ fi
 loggedInUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
 
 # test if a user is logged in
-if [ -n $loggedInUser ]; then
+if [ -n "$loggedInUser" ]; then
     # get the uid
     uid=$(id -u "$loggedInUser")
     # do what you need to do
