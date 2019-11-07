@@ -49,3 +49,5 @@ You can get the code for `desktoppr` on my Github page and an installer [here](h
 ```
 
 Since the `desktoppr` tool also sets user preferences, you still need to pay attention that it runs as the user. A LaunchAgent or a solution like [`outset`](https://github.com/chilcote/outset) is a good choice to manage this.
+
+The tool requires the [Swift 5 Runtime support for command line tools](https://support.apple.com/kb/DL1998) when you install it on versions of macOS older than 10.14.4.
