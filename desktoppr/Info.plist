@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>BuildNumber</key>
-	<integer>43</integer>
+	<integer>44</integer>
 	<key>CFBundleIdentifier</key>
 	<string>com.scriptingosx.desktoppr</string>
 	<key>CFBundleName</key>
 	<string>desktoppr</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.2</string>
+	<string>0.3</string>
 	<key>CFBundleVersion</key>
-	<string>0.2</string>
+	<string>0.3</string>
 </dict>
 </plist>
