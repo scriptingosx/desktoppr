@@ -100,6 +100,13 @@ notarizefile "$pkgpath" "$identifier"
 echo "## Stapling $pkgpath"
 xcrun stapler staple "$pkgpath"
 
+# also create a zip archive
+zippath="$builddir/$productname-$version.zip"
+zip "$zippath" "$pkgroot"/usr/local/bin/desktoppr
+
+# upload zip for notarization
+notarizefile "$zippath" "$identifier"
+
 echo '## Done!'
 
 exit 0
