@@ -4,11 +4,8 @@
 ## sets the desktop using `desktoppr`
 ##
 
-
 # set the path to the desktop image file here
 picturepath="/Library/Desktop Pictures/BoringBlueDesktop.png"
-
-scriptdir=$(dirname "$0")
 
 # only run when installing on System Volume
 if [ "$3" != "/" ]; then
@@ -21,6 +18,9 @@ if [ ! -f "$picturepath" ]; then
     echo "no file at $picturepath, exiting"
     exit 1
 fi
+
+# path to current directory of the script
+scriptdir=$(dirname "$0")
 
 # try to locate desktoppr
 if [ -x "$scriptdir/desktoppr" ]; then
