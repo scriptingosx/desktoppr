@@ -61,12 +61,12 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "color"
+            argument = "scale"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "808080"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>

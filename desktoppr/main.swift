@@ -24,10 +24,12 @@ import AppKit
 let version = "0.3"
 
 enum ScreenOption : Equatable {
-    case all
-    case main
-    case index(Int)
-    case color
+  case all
+  case main
+  case index(Int)
+  case color
+  case clip
+  case scale
 }
 
 func usage() {
@@ -71,6 +73,10 @@ func parseOption(argument: String) -> ScreenOption? {
         option = .main
     case "color":
       option = .color
+    case "clip":
+      option = .clip
+    case "scale":
+      option = .scale
     default:
         // is the argument a number?
         if let index = Int(argument) {
@@ -154,6 +160,30 @@ func fillColor(for screen: NSScreen) -> String? {
   return hexString
 }
 
+// key never seems to be set in the image options
+func allowClipping(for screen: NSScreen) -> Bool? {
+  let ws = NSWorkspace.shared
+  guard let options = ws.desktopImageOptions(for: screen) else { return nil }
+  guard let clip = options[NSWorkspace.DesktopImageOptionKey.allowClipping] as? NSNumber else { return false }
+  
+  return clip.boolValue
+}
+
+
+// values map to the settings in Desktop pref pane as follwing:
+// 0: (no value set in dict) Fill Screen
+// 1: Strech to Fill Screen
+// 2: Center
+// 3: Fit to Screen
+
+func imageScaling(for screen: NSScreen) -> Int {
+  let ws = NSWorkspace.shared
+  guard let options = ws.desktopImageOptions(for: screen) else { return -1 }
+  guard let imageScaling = options[NSWorkspace.DesktopImageOptionKey.imageScaling] as? NSNumber else { return 0 }
+  
+  return imageScaling.intValue
+}
+
 func main() {
   // first argument is always path to binary, ignore
   let arguments = CommandLine.arguments.dropFirst()
@@ -161,6 +191,7 @@ func main() {
   var screenOption = ScreenOption.all
   var fileURL : URL?
   var color : NSColor?
+  var isClipped : Bool?
   
   switch arguments.count {
   case 0:
@@ -182,6 +213,12 @@ func main() {
     if screenOption == ScreenOption.color {
       if let parsedcolor = colorFromHex(hexString: arguments[2]) {
         color = parsedcolor
+      }
+    } else if screenOption == ScreenOption.clip {
+      if ["YES", "true", "1"].contains(arguments[2]) {
+        isClipped = true
+      } else {
+        isClipped = false
       }
     } else {
       fileURL = parseURL(path: arguments[2])
@@ -228,6 +265,16 @@ func main() {
     } else {
       setFillColor(color: color!)
     }
+  case .clip:
+    if isClipped == nil {
+      for screen in NSScreen.screens {
+        print(allowClipping(for: screen)!.description)
+      }
+    }
+  case .scale:
+      for screen in NSScreen.screens {
+        print(imageScaling(for: screen))
+      }
   }
 }
 
