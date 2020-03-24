@@ -48,6 +48,11 @@ desktoppr: a tool to set the desktop picture
          N: (number) screen index
          if a valid file path is given it will be set as the desktop picture,
          otherwise the path to the current desktop picture is printed
+         
+         The next two values will be set for _all_ screens.
+         color:      provide a hex color string (000000 to FFFFFF) for the background
+         scale:      fill | stretch | center | fit
+                     determines how the image is scaled to the screen
 """)
 }
 
