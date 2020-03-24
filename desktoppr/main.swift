@@ -23,10 +23,11 @@ import AppKit
 
 let version = "0.3"
 
-enum ScreenOption {
+enum ScreenOption : Equatable {
     case all
     case main
     case index(Int)
+    case color
 }
 
 func usage() {
@@ -68,6 +69,8 @@ func parseOption(argument: String) -> ScreenOption? {
         option = .all
     case "main":
         option = .main
+    case "color":
+      option = .color
     default:
         // is the argument a number?
         if let index = Int(argument) {
@@ -94,6 +97,27 @@ func parseURL(path : String) -> URL? {
     }
 }
 
+func colorFromHex(hexString : String) -> NSColor? {
+  var result : NSColor? = nil
+  
+  if let colorCode = Int(hexString, radix: 16) {
+    let redByte = (colorCode >> 16) & 0xff
+    let greenByte = (colorCode >> 8) & 0xff
+    let blueByte = colorCode & 0xff
+    
+    let redValue = CGFloat(redByte) / 0xff
+    let greenValue = CGFloat(greenByte) / 0xff
+    let blueValue = CGFloat(blueByte) / 0xff
+    
+    result = NSColor(calibratedRed: redValue, green: greenValue, blue: blueValue, alpha: 1.0)
+  } else {
+    errprint("could not parse color: \(hexString)")
+    exit(1)
+  }
+  return result
+}
+
+
 func desktopImagePath(for screen : NSScreen) -> String {
     let ws = NSWorkspace.shared
     return ws.desktopImageURL(for: screen)!.path
@@ -104,69 +128,109 @@ func setDesktopImage(url : URL, for screen : NSScreen) {
     try! ws.setDesktopImageURL(url, for: screen)
 }
 
-func main() {
-    // first argument is always path to binary, ignore
-    let arguments = CommandLine.arguments.dropFirst()
-    
-    var screenOption = ScreenOption.all
-    var fileURL : URL?
-    
-    switch arguments.count {
-    case 0:
-        screenOption = ScreenOption.all
-    case 1:
-        if let option = parseOption(argument: arguments[1]) {
-            screenOption = option
-        } else {
-            fileURL = parseURL(path: arguments[1])
-        }
-    case 2:
-        if let option = parseOption(argument: arguments[1]) {
-            screenOption = option
-        } else {
-            errprint("cannot parse \(arguments[1])")
-            usage()
-            exit(1)
-        }
-        fileURL = parseURL(path: arguments[2])
-    default:
-        usage()
-        exit(1)
-    }
-    
-    // display warning if running as root
-    if ProcessInfo.processInfo.userName == "root" {
-        errprint("desktoppr is running as root. This is probably not what you are intending. To set the desktop picture  for a user, desktoppr needs to run as that user.")
-    }
-    
-    if fileURL == nil {
-        // display the desktop image path
-        switch screenOption {
-        case .all:
-            for screen in NSScreen.screens {
-                print(desktopImagePath(for: screen))
-            }
-        case .main:
-            print(desktopImagePath(for: NSScreen.main!))
-        case .index(let i):
-            let screen = NSScreen.screens[i]
-            print(desktopImagePath(for: screen))
-        }
-    } else {
-        // set the desktop image
-        switch screenOption {
-        case .all:
-            for screen in NSScreen.screens {
-                setDesktopImage(url: fileURL!, for: screen)
-            }
-        case .main:
-            setDesktopImage(url: fileURL!, for: NSScreen.main!)
-        case .index(let i):
-            let screen = NSScreen.screens[i]
-            setDesktopImage(url: fileURL!, for: screen)
-        }
-    }
+func setFillColor(color: NSColor) {
+  let ws = NSWorkspace.shared
+  // loop through all screens
+  for screen in NSScreen.screens {
+    let currentImageURL = ws.desktopImageURL(for: screen)
+    var options = ws.desktopImageOptions(for: screen)
+    options![NSWorkspace.DesktopImageOptionKey.fillColor] = color
+    print("Setting color for screen with image \(currentImageURL!.path)")
+    try! ws.setDesktopImageURL(currentImageURL!, for: screen, options: options!)
+  }
 }
+
+func fillColor(for screen: NSScreen) -> String? {
+  let ws = NSWorkspace.shared
+  guard let options = ws.desktopImageOptions(for: screen) else { return nil }
+  guard let fillColor = options[NSWorkspace.DesktopImageOptionKey.fillColor] as? NSColor else { return nil }
+  
+  let redByte = Int(fillColor.redComponent * 0xff)
+  let greenByte = Int(fillColor.greenComponent * 0xff)
+  let blueByte = Int(fillColor.blueComponent * 0xff)
+  
+  let hexString = String(format:"%02X%02X%02X", redByte, greenByte, blueByte)
+  
+  return hexString
+}
+
+func main() {
+  // first argument is always path to binary, ignore
+  let arguments = CommandLine.arguments.dropFirst()
+  
+  var screenOption = ScreenOption.all
+  var fileURL : URL?
+  var color : NSColor?
+  
+  switch arguments.count {
+  case 0:
+    screenOption = ScreenOption.all
+  case 1:
+    if let option = parseOption(argument: arguments[1]) {
+      screenOption = option
+    } else {
+      fileURL = parseURL(path: arguments[1])
+    }
+  case 2:
+    if let option = parseOption(argument: arguments[1]) {
+      screenOption = option
+    } else {
+      errprint("cannot parse \(arguments[1])")
+      usage()
+      exit(1)
+    }
+    if screenOption == ScreenOption.color {
+      if let parsedcolor = colorFromHex(hexString: arguments[2]) {
+        color = parsedcolor
+      }
+    } else {
+      fileURL = parseURL(path: arguments[2])
+    }
+  default:
+    usage()
+    exit(1)
+  }
+  
+  // display warning if running as root
+  if ProcessInfo.processInfo.userName == "root" {
+    errprint("desktoppr is running as root. This is probably not what you are intending. To set the desktop picture  for a user, desktoppr needs to run as that user.")
+  }
+  
+  switch screenOption {
+  case .all:
+    if fileURL == nil {
+      for screen in NSScreen.screens {
+        print(desktopImagePath(for: screen))
+      }
+    } else {
+      for screen in NSScreen.screens {
+        setDesktopImage(url: fileURL!, for: screen)
+      }
+    }
+  case .main:
+    if fileURL == nil {
+      print(desktopImagePath(for: NSScreen.main!))
+    } else {
+      setDesktopImage(url: fileURL!, for: NSScreen.main!)
+    }
+  case .index(let i):
+    let screen = NSScreen.screens[i]
+    if fileURL == nil {
+      print(desktopImagePath(for: screen))
+    } else {
+      setDesktopImage(url: fileURL!, for: screen)
+    }
+  case .color:
+    if color == nil {
+      for screen in NSScreen.screens {
+        print(fillColor(for: screen) ?? "cannot get color")
+      }
+    } else {
+      setFillColor(color: color!)
+    }
+  }
+}
+
 
 main()
 
