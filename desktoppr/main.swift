@@ -32,6 +32,13 @@ enum ScreenOption : Equatable {
   case scale
 }
 
+enum ScaleOption : String {
+  case fill
+  case stretch
+  case center
+  case fit
+}
+
 func usage() {
     errprint("""
 desktoppr: a tool to set the desktop picture
@@ -141,7 +148,6 @@ func setFillColor(color: NSColor) {
     let currentImageURL = ws.desktopImageURL(for: screen)
     var options = ws.desktopImageOptions(for: screen)
     options![NSWorkspace.DesktopImageOptionKey.fillColor] = color
-    print("Setting color for screen with image \(currentImageURL!.path)")
     try! ws.setDesktopImageURL(currentImageURL!, for: screen, options: options!)
   }
 }
@@ -176,12 +182,55 @@ func allowClipping(for screen: NSScreen) -> Bool? {
 // 2: Center
 // 3: Fit to Screen
 
-func imageScaling(for screen: NSScreen) -> Int {
+func setImageScaling(_ scale: ScaleOption) {
   let ws = NSWorkspace.shared
-  guard let options = ws.desktopImageOptions(for: screen) else { return -1 }
-  guard let imageScaling = options[NSWorkspace.DesktopImageOptionKey.imageScaling] as? NSNumber else { return 0 }
+  let scaleValue : NSNumber?
+  switch scale {
+  case .fill:
+    scaleValue = nil
+  case .stretch:
+    scaleValue = NSNumber(integerLiteral: 1) // NSImageScaling.scaleAxesIndependently
+  case .center:
+    scaleValue = NSNumber(integerLiteral: 2) // NSImageScaling.scaleNone
+  case .fit:
+    scaleValue = NSNumber(integerLiteral: 3) // NSImageScaling.scaleProportionallyUpOrDown
+  }
   
-  return imageScaling.intValue
+  // loop through all screens
+  for screen in NSScreen.screens {
+    let currentImageURL = ws.desktopImageURL(for: screen)
+    let scalingKey = NSWorkspace.DesktopImageOptionKey.imageScaling
+    var options = ws.desktopImageOptions(for: screen)
+    if scaleValue == nil {
+      options!.removeValue(forKey: scalingKey)
+    } else {
+      options![scalingKey] = scaleValue
+    }
+    try! ws.setDesktopImageURL(currentImageURL!, for: screen, options: options!)
+  }
+}
+
+
+func imageScaling(for screen: NSScreen) -> ScaleOption? {
+  let ws = NSWorkspace.shared
+  guard let options = ws.desktopImageOptions(for: screen) else { return nil }
+  let imageScalingValue = options[NSWorkspace.DesktopImageOptionKey.imageScaling] as? NSNumber
+  var imageScaling : ScaleOption?
+  if imageScalingValue == nil {
+    imageScaling = .fill
+  } else {
+    switch imageScalingValue!.intValue {
+    case 1:
+      imageScaling = .stretch
+    case 2:
+      imageScaling = .center
+    case 3:
+      imageScaling = .fit
+    default:
+      imageScaling = nil
+    }
+  }
+  return imageScaling
 }
 
 func main() {
@@ -191,7 +240,7 @@ func main() {
   var screenOption = ScreenOption.all
   var fileURL : URL?
   var color : NSColor?
-  var isClipped : Bool?
+  var scale : ScaleOption?
   
   switch arguments.count {
   case 0:
@@ -214,11 +263,9 @@ func main() {
       if let parsedcolor = colorFromHex(hexString: arguments[2]) {
         color = parsedcolor
       }
-    } else if screenOption == ScreenOption.clip {
-      if ["YES", "true", "1"].contains(arguments[2]) {
-        isClipped = true
-      } else {
-        isClipped = false
+    } else if screenOption == ScreenOption.scale {
+      if let parsedScale = ScaleOption(rawValue: arguments[2]) {
+        scale = parsedScale
       }
     } else {
       fileURL = parseURL(path: arguments[2])
@@ -266,15 +313,22 @@ func main() {
       setFillColor(color: color!)
     }
   case .clip:
-    if isClipped == nil {
-      for screen in NSScreen.screens {
-        print(allowClipping(for: screen)!.description)
-      }
+    for screen in NSScreen.screens {
+      print(allowClipping(for: screen)!.description)
     }
   case .scale:
+    if scale == nil {
       for screen in NSScreen.screens {
-        print(imageScaling(for: screen))
+        let s = imageScaling(for:screen)
+        if s == nil {
+          print("unkown")
+        } else {
+          print(s!.rawValue)
+        }
       }
+    } else {
+      setImageScaling(scale!)
+    }
   }
 }
 
