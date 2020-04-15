@@ -1,0 +1,27 @@
+#!/bin/zsh
+
+# change this path to match the location on your system
+transparentDesktop=~/Projects/desktoppr/examples/randomdesktopcolor/transparent.png
+desktoppr="/usr/local/bin/desktoppr"
+
+if [[ ! -x $desktoppr ]]; then
+    echo "couldn't find desktoppr, exiting..."
+    exit 1s
+fi
+
+# create three random hex numbers
+red=$(printf "%02x" $((RANDOM % 256)))
+# re-seed RANDOM
+RANDOM=$RANDOM
+green=$(printf "%02x" $((RANDOM % 256)))
+RANDOM=$RANDOM
+blue=$(printf "%02x" $((RANDOM % 256)))
+echo "random color: $red$green$blue"
+
+# set the transparent desktop pictures
+if [[ -f $transparentDesktop ]]; then
+    $desktoppr $transparentDesktop
+    $desktoppr color $red$green$blues
+    sleep 0.1
+    $desktoppr scale center
+fi
