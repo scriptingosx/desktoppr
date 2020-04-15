@@ -6,7 +6,7 @@ desktoppr="/usr/local/bin/desktoppr"
 
 if [[ ! -x $desktoppr ]]; then
     echo "couldn't find desktoppr, exiting..."
-    exit 1s
+    exit 1
 fi
 
 # create three random hex numbers
