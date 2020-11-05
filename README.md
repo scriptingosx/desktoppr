@@ -50,6 +50,11 @@ You can get the code for `desktoppr` on my Github page and an installer [here](h
 /usr/local/bin/desktoppr "/Library/Desktop Pictures/BoringBlueDesktop.png"
 ```
 
-Since the `desktoppr` tool also sets user preferences, you still need to pay attention that it runs as the user. A LaunchAgent or a solution like [`outset`](https://github.com/chilcote/outset) is a good choice to manage this.
+Since the `desktoppr` tool also sets user preferences, you still need to pay attention that it runs as the user. A LaunchAgent or a solution like [`outset`](https://github.com/chilcote/outset) is a good choice to manage this. Alternatively, you can [run the command as the current user from a root script](https://scriptingosx.com/2020/08/running-a-command-as-another-user/).
 
 The tool requires the [Swift 5 Runtime support for command line tools](https://support.apple.com/kb/DL1998) when you install it on versions of macOS older than 10.14.4.
+
+I have written a few blog posts that describe different use strategies for setting a desktop picture:
+
+- [Strategies to using desktoppr](https://scriptingosx.com/2020/03/strategies-to-using-desktoppr/)
+- [Random Desktop Background with  desktoppr](https://scriptingosx.com/2020/04/random-desktop-background-color-with-desktoppr/)
