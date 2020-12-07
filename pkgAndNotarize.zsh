@@ -83,6 +83,7 @@ identifier=$($plistbuddy -c "print CFBundleIdentifier" "$infoplist")
 productname=$($plistbuddy -c "print CFBundleName" "$infoplist")
 
 pkgpath="$builddir/$productname-$version.pkg"
+componentpath="$builddir/$productname.pkg"
 
 echo "## building pkg: $pkgpath"
 
@@ -90,7 +91,12 @@ pkgbuild --root "$pkgroot" \
          --version "$version" \
          --identifier "$identifier" \
          --sign "Developer ID Installer: Armin Briegel (JME5BW3F3R)" \
-         "$pkgpath"
+         "$componentpath"
+
+productbuild --package "$componentpath" \
+             --product "$builddir/requirements.plist" \
+             --sign "Developer ID Installer: Armin Briegel (JME5BW3F3R)" \
+             "$pkgpath"
 
 # upload for notarization
 notarizefile "$pkgpath" "$identifier"
@@ -102,7 +108,7 @@ xcrun stapler staple "$pkgpath"
 
 # also create a zip archive
 zippath="$builddir/$productname-$version.zip"
-zip "$zippath" "$pkgroot"/usr/local/bin/desktoppr
+zip "$zippath" -j "$pkgroot"/usr/local/bin/desktoppr
 
 # upload zip for notarization
 notarizefile "$zippath" "$identifier"

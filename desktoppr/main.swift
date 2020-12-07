@@ -21,7 +21,7 @@
 import Foundation
 import AppKit
 
-let version = "0.3"
+let version = "0.4"
 
 enum ScreenOption : Equatable {
   case all

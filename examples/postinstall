@@ -34,10 +34,11 @@ fi
 
 # get the current user
 loggedInUser=$(echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ { print $3 }')
+uid=$(id -u "$loggedInUser")
 
 if [ "$loggedInUser" != "loginwindow" ]; then
     # set the desktop for the user
-    sudo -u "$loggedInUser" "$desktoppr" "$picturepath"
+    sudo -u "$loggedInUser" launchctl asuser "$uid" "$desktoppr" "$picturepath"
 else
     echo "no user logged in, no desktop set"
 fi
