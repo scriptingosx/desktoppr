@@ -94,7 +94,7 @@ pkgbuild --root "$pkgroot" \
          "$componentpath"
 
 productbuild --package "$componentpath" \
-             --product "$builddir/requirements.plist" \
+             --product "$projectdir/requirements.plist" \
              --sign "Developer ID Installer: Armin Briegel (JME5BW3F3R)" \
              "$pkgpath"
 
