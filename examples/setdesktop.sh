@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ##
 ## sets the desktop using `desktoppr`
@@ -11,14 +11,14 @@ picturepath="/Library/Desktop Pictures/BoringBlueDesktop.png"
 
 
 # verify the image exists
-if [ ! -f "$picturepath" ]; then
+if [[ ! -f "$picturepath" ]]; then
     echo "no file at $picturepath, exiting"
     exit 1
 fi
 
 # verify that desktoppr is installed
 desktoppr="/usr/local/bin/desktoppr"
-if [ ! -x "$desktoppr" ]; then
+if [[ ! -x "$desktoppr" ]]; then
     echo "cannot find desktoppr at $desktoppr, exiting"
     exit 1
 fi
@@ -27,10 +27,18 @@ fi
 loggedInUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
 
 # test if a user is logged in
-if [ -n "$loggedInUser" ]; then
+if [[ -n "$loggedInUser" ]]; then
     # set the desktop for the user
     uid=$(id -u "$loggedInUser")
-    launchctl asuser "$uid" sudo -u "$loggedInUser" "$desktoppr" "$picturepath"
+
+    if [[ "$(sw_vers -buildVersion)" > "21" ]]; then
+        # behavior with sudo seems to be broken in Montery
+        # dropping the sudo will result in a warning that desktoprr seems to be
+        # running as root, but it will still work
+        launchctl asuser "$uid" "$desktoppr" "$picturepath"
+    else
+        sudo -u "$loggedInUser" launchctl asuser "$uid" "$desktoppr" "$picturepath"
+    fi
 else
     echo "no user logged in, no desktop set"
 fi
