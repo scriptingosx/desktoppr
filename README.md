@@ -46,21 +46,17 @@ $ desktoppr 2 /Library/Desktop Pictures/MrOfficer.jpg
 
 ## Image scaling
 
-`desktoppr` can control the image scaling for the desktop picture.
-
 Use the `scale` verb to control how the desktops are scaled. It can have the values `fill` (default), `stretch`, `center`, and `fit`.
 
 ```
 desktoppr scale center
 ```
 
-It will set for _all_ screens.
+This will set the scale for _all_ screens.
 
 ## Background color
 
-`desktoppr` can control the background color as well.
-
-You can pass a hex string for the background color:
+USe the `color` verb to set the background color. You can pass a hex string for the background color:
 
 ```
 desktoppr color 000000      # black background
@@ -68,11 +64,11 @@ desktoppr color FFFFFF      # white background
 desktoppr color FF0000      # red background
 ```
 
-It will likewise be set for _all_ screens.
+This will set the background color for _all_ screens.
 
 # Source code
 
-You can get the code for `desktoppr` on my Github page and an installer [here](https://github.com/scriptingosx/desktoppr/releases). The installer pkg will install the tool in `/usr/local/bin`. Alternatively, a brew casks exists, so you could install it using `brew cask install desktoppr` if you have [Homebrew](https://brew.sh) installed.
+You can get the code for `desktoppr` on my Github page and an installer [here](https://github.com/scriptingosx/desktoppr/releases). The installer pkg will install the tool in `/usr/local/bin`. Alternatively, a brew casks exists, so you could install it using `brew install --cask desktoppr` if you have [Homebrew](https://brew.sh) installed.
 
 When you want to run it from a management script it is safest to include the entire path:
 
