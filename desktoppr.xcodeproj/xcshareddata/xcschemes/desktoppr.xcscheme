@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1130"
+   LastUpgradeVersion = "1500"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -62,11 +62,15 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "scale"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "defaults"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "fill"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>

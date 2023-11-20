@@ -30,6 +30,7 @@ enum ScreenOption : Equatable {
   case color
   case clip
   case scale
+  case defaults
 }
 
 enum ScaleOption : String {
@@ -89,6 +90,8 @@ func parseOption(argument: String) -> ScreenOption? {
       option = .clip
     case "scale":
       option = .scale
+    case "defaults":
+      option = .defaults
     default:
         // is the argument a number?
         if let index = Int(argument) {
@@ -334,6 +337,72 @@ func main() {
     } else {
       setImageScaling(scale!)
     }
+  case .defaults:
+    setFromDefaults()
+  }
+
+  func setFromDefaults() {
+    if let picturePath = Defaults.picturePath {
+      if let fileURL = parseURL(path: picturePath) {
+        for screen in NSScreen.screens {
+          setDesktopImage(url: fileURL, for: screen)
+        }
+        Defaults.lastPath = fileURL.path
+        Defaults.lastSetDate = Date()
+      }
+    }
+
+    if let color = Defaults.color,
+       let parsedColor = colorFromHex(hexString: color) {
+      setFillColor(color: parsedColor)
+    }
+
+    setImageScaling(Defaults.scale)
+  }
+}
+
+struct Defaults {
+  static let defaults = UserDefaults()
+
+  static let picturePathKey = "picturePath"
+  static let colorKey = "color"
+  static let scaleKey = "scale"
+  static let setOnlyOnceKey = "setOnlyOnce"
+  static let lastPathKey = "lastPath"
+  static let lastSetDateKey = "lastSetDate"
+  static let respectUserChangeKey = "respectUserChange"
+
+  static var picturePath: String? {
+    defaults.string(forKey: picturePathKey)
+  }
+
+  static var color: String? {
+    defaults.string(forKey: colorKey)
+  }
+
+  static var scale: ScaleOption {
+    guard let scale = defaults.string(forKey: scaleKey),
+      let scaleOption = ScaleOption(rawValue: scale)
+    else { return .fill }
+    return scaleOption
+  }
+
+  static var setOnlyOnce: Bool {
+    defaults.bool(forKey: setOnlyOnceKey) ?? false
+  }
+
+  static var lastPath: String? {
+    get { defaults.string(forKey: lastPathKey) }
+    set { defaults.set(newValue, forKey: lastPathKey) }
+  }
+
+  static var lastSetDate: Date? {
+    get { defaults.object(forKey: lastSetDateKey) as? Date }
+    set { defaults.set(newValue, forKey: lastSetDateKey) }
+  }
+
+  static var respectUserChange: Bool {
+    defaults.bool(forKey: respectUserChangeKey) ?? false
   }
 }
 
