@@ -69,12 +69,12 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "https://basicappleguy.com/s/Aurora_Mac.heic"
-            isEnabled = "YES">
+            argument = "https://512pixels.net/downloads/macos-wallpapers/10-0_10.1.png"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "defaults"
-            isEnabled = "NO">
+            argument = "manage"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "fill"

@@ -30,7 +30,7 @@ enum ScreenOption : Equatable {
   case color
   case clip
   case scale
-  case defaults
+  case manage
 }
 
 enum ScaleOption : String {
@@ -90,8 +90,8 @@ func parseOption(argument: String) -> ScreenOption? {
     option = .clip
   case "scale":
     option = .scale
-  case "defaults":
-    option = .defaults
+  case "manage":
+    option = .manage
   default:
     // is the argument a number?
     if let index = Int(argument) {
@@ -389,7 +389,7 @@ func main() {
     } else {
       setImageScaling(scale!)
     }
-  case .defaults:
+  case .manage:
     setFromDefaults()
   }
 
@@ -420,7 +420,7 @@ func main() {
 struct Defaults {
   static let defaults = UserDefaults.standard
 
-  static let picturePathKey = "picturePath"
+  static let picturePathKey = "picture"
   static let colorKey = "color"
   static let scaleKey = "scale"
   static let setOnlyOnceKey = "setOnlyOnce"
