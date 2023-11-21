@@ -144,6 +144,15 @@ func desktopImagePath(for screen : NSScreen) -> String {
     return ws.desktopImageURL(for: screen)!.path
 }
 
+func setAllDesktopImages(url: URL) {
+  for screen in NSScreen.screens {
+    setDesktopImage(url: url, for: screen)
+  }
+
+  Defaults.lastPath = url.path
+  Defaults.lastSetDate = Date()
+}
+
 func setDesktopImage(url : URL, for screen : NSScreen) {
     let ws = NSWorkspace.shared
     try! ws.setDesktopImageURL(url, for: screen)
@@ -285,7 +294,7 @@ func main() {
   
   // display warning if running as root
   if ProcessInfo.processInfo.userName == "root" {
-    errprint("desktoppr is running as root. This is probably not what you are intending. To set the desktop picture  for a user, desktoppr needs to run as that user.")
+    errprint("desktoppr is running as root. This is probably not what you are intending. To set the desktop picture for a user, desktoppr needs to run as that user.")
   }
   
   switch screenOption {
@@ -295,9 +304,7 @@ func main() {
         print(desktopImagePath(for: screen))
       }
     } else {
-      for screen in NSScreen.screens {
-        setDesktopImage(url: fileURL!, for: screen)
-      }
+      setAllDesktopImages(url: fileURL!)
     }
   case .main:
     if fileURL == nil {
@@ -344,11 +351,15 @@ func main() {
   func setFromDefaults() {
     if let picturePath = Defaults.picturePath {
       if let fileURL = parseURL(path: picturePath) {
-        for screen in NSScreen.screens {
-          setDesktopImage(url: fileURL, for: screen)
+        if Defaults.setOnlyOnce {
+          // check if we have set this path already
+          // this allows the user to change the wallpaper without us overwriting it
+          if Defaults.lastPath != Defaults.picturePath {
+            setAllDesktopImages(url: fileURL)
+           }
+        } else {
+          setAllDesktopImages(url: fileURL)
         }
-        Defaults.lastPath = fileURL.path
-        Defaults.lastSetDate = Date()
       }
     }
 
@@ -362,7 +373,7 @@ func main() {
 }
 
 struct Defaults {
-  static let defaults = UserDefaults()
+  static let defaults = UserDefaults.standard
 
   static let picturePathKey = "picturePath"
   static let colorKey = "color"
@@ -388,7 +399,7 @@ struct Defaults {
   }
 
   static var setOnlyOnce: Bool {
-    defaults.bool(forKey: setOnlyOnceKey) ?? false
+    defaults.bool(forKey: setOnlyOnceKey)
   }
 
   static var lastPath: String? {
@@ -402,7 +413,7 @@ struct Defaults {
   }
 
   static var respectUserChange: Bool {
-    defaults.bool(forKey: respectUserChangeKey) ?? false
+    defaults.bool(forKey: respectUserChangeKey)
   }
 }
 
