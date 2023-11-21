@@ -21,7 +21,7 @@
 import Foundation
 import AppKit
 
-let version = "0.4"
+let version = "0.5"
 
 enum ScreenOption : Equatable {
   case all
@@ -127,6 +127,9 @@ func download(from url: URL) -> String? {
     }
     let newURL = desktopprSupportDir.appendingPathComponent(filename)
     do {
+      if FileManager.default.fileExists(atPath: newURL.path) {
+        try FileManager.default.removeItem(at: newURL)
+      }
       try FileManager.default.moveItem(at: downloadedPicture, to: newURL)
     } catch {
       return

@@ -65,6 +65,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "/System/Library/CoreServices/DefaultDesktop.heic"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "https://github.com/scriptingosx/desktoppr/blob/main/examples/BoringBlueDesktop.png?raw=true"
             isEnabled = "NO">
          </CommandLineArgument>
