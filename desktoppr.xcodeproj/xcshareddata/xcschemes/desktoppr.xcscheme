@@ -65,8 +65,16 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "defaults"
+            argument = "https://github.com/scriptingosx/desktoppr/blob/main/examples/BoringBlueDesktop.png?raw=true"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "https://basicappleguy.com/s/Aurora_Mac.heic"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "defaults"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "fill"

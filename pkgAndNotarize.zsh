@@ -30,8 +30,8 @@ fi
 
 
 component_path="${build_dir}/${pkg_name}.pkg"
-product_path="${build_dir}/${pkg_name}-${version}-${build_number}.pkg"
-notary_log="${build_dir}/pkg_build.log"
+product_path="${artifacts_dir}/${pkg_name}-${version}-${build_number}.pkg"
+notary_log="${artifacts_dir}/pkg_build.log"
 
 exec > >(tee -a "$notary_log") 2>&1
 
