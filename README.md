@@ -119,7 +119,7 @@ The examples have [a sample defaults plist with keys](examples/defaults.plist) a
 
 ## Download
 
-You can get the code for `desktoppr` on my Github page and an installer in the [Releases](https://github.com/scriptingosx/desktoppr/releases). The installer pkg will install the binary in `/usr/local/bin`. Alternatively, a brew cask exists, so you could install it using `brew cask install desktoppr` if you have [Homebrew](https://brew.sh) installed.
+You can get the code for `desktoppr` on my Github page and an installer in the [Releases](https://github.com/scriptingosx/desktoppr/releases). The installer pkg will install the binary in `/usr/local/bin`. Alternatively, a brew cask exists, so you could install it using `brew install --cask desktoppr` if you have [Homebrew](https://brew.sh) installed.
 
 The tool requires the [Swift 5 Runtime support for command line tools](https://support.apple.com/kb/DL1998) when you install it on versions of macOS older than 10.14.4.
 
