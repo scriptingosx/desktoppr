@@ -172,7 +172,7 @@
 		C6DFA08222B77599009E16BE /* Run Script (BuildNumber) */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -184,9 +184,9 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/zsh;
-			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print BuildNumber\" \"$SRCROOT/desktoppr/Info.plist\")\n\nnewBuildNumber=$(($buildNumber + 1))\n\n/usr/libexec/PlistBuddy -c \"Set :BuildNumber $newBuildNumber\" \"$SRCROOT/desktoppr/Info.plist\"\nxcrun agvtool new-version $newBuildNumber\n";
+			shellScript = "buildNumber=$(xcrun agvtool what-version -terse)\n\nnewBuildNumber=$(($buildNumber + 1))\n\nxcrun agvtool new-version $newBuildNumber\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -347,7 +347,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 213;
+				CURRENT_PROJECT_VERSION = 215;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = JME5BW3F3R;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -365,7 +365,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 213;
+				CURRENT_PROJECT_VERSION = 215;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = JME5BW3F3R;
 				ENABLE_HARDENED_RUNTIME = YES;

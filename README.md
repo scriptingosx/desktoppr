@@ -84,6 +84,8 @@ When you run `desktoppr` with the `manage` verb, it will read the settings from 
 
 The idea is to run `desktoppr manage` with a LaunchAgent plist at login and/or at regular intervals. You can find [a sample LaunchAgent plist here](examples/com.scriptingosx.desktopprmanage.plist). The sample LaunchAgent will run `desktoppr manage` at login and every three hours (10800 sec). You can build a pkg that installs the desktoppr binary, the LaunchAgent plist and an image file very early in the deployment workflow and then desktoppr sets the desktop background when the user reaches the desktop for the first time.
 
+For Ventura and higher, binaries and applications run by LaunchAgents need to be approved with a `com.apple.servicemanagement` profile so they appear as managed in the login items section in Settings.app. The above sample configuration profile contains those settings, as well.
+
 
 desktoppr uses the following keys:
 

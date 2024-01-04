@@ -10,7 +10,7 @@
 pkg_name="$PRODUCT_NAME"
 identifier="$PRODUCT_BUNDLE_IDENTIFIER"
 version="$MARKETING_VERSION"
-build_number=$(/usr/libexec/PlistBuddy -c "Print BuildNumber" "$SRCROOT/desktoppr/Info.plist")
+build_number="$CURRENT_PROJECT_VERSION"
 min_os_version="$MACOSX_DEPLOYMENT_TARGET"
 
 build_dir="$BUILD_DIR"
@@ -53,7 +53,7 @@ echo "note: Installer cert ID: $sign_cert"
 echo
 
 # print environment variables
-env | sort
+# env | sort
 
 echo
 
@@ -126,8 +126,10 @@ echo
 # staple
 xcrun stapler staple "$product_path"
 
+echo
+
 # also create a zip archive
-zippath="$artifacts_dir/$pkg_name-$version.zip"
+zippath="$artifacts_dir/$pkg_name-$version-$build_number.zip"
 echo "note: zip archive: $zippath"
 zip "$zippath" -j "$pkgroot"/usr/local/bin/desktoppr
 
@@ -136,14 +138,9 @@ echo "note: notarizing zip archive"
 xcrun notarytool submit "$zippath"  \
                  --keychain-profile "$credential_profile" \
                  --wait
-xcrun stapler staple "$product_path"
 
-
+echo
 echo '## Done!'
-
-
-exit 0
-
 
 # notify
 osascript -e "display notification \"$pkg_name ($version, $build_number) built and notarized\""
