@@ -20,6 +20,7 @@
 
 import Foundation
 import AppKit
+import CryptoKit
 
 let version = "0.5"
 
@@ -107,6 +108,21 @@ func parseOption(argument: String) -> ScreenOption? {
 }
 
 func download(from url: URL) -> String? {
+//  var headRequest = URLRequest(url: url)
+//  headRequest.httpMethod = "HEAD"
+//  let headSemaphore = DispatchSemaphore(value: 0)
+//  let headerTask = URLSession.shared.dataTask(with: headRequest) { _, response, error in
+//    defer { headSemaphore.signal() }
+//
+//    if let httpResponse = response as? HTTPURLResponse {
+//      print("http response code: \(httpResponse.statusCode)")
+//      print("header fields: \(httpResponse.allHeaderFields)")
+//    }
+//    print(response?.suggestedFilename)
+//  }
+//  headerTask.resume()
+//  headSemaphore.wait()
+
   let request = URLRequest(url: url)
   var newImage: URL? = nil
   let semaphore = DispatchSemaphore(value: 0)
@@ -150,6 +166,7 @@ func parseURL(path : String) -> URL? {
     if let url = URL(string: path),
        let downloadedImagePath = download(from: url) {
       imagePath = downloadedImagePath
+      Defaults.lastURL = path
     } else {
       errprint("couldn't download: \(path)")
       exit(1)
@@ -243,7 +260,7 @@ func allowClipping(for screen: NSScreen) -> Bool? {
 
 // values map to the settings in Desktop pref pane as follwing:
 // 0: (no value set in dict) Fill Screen
-// 1: Strech to Fill Screen
+// 1: Stretch to Fill Screen
 // 2: Center
 // 3: Fit to Screen
 
@@ -395,28 +412,57 @@ func main() {
   case .manage:
     setFromDefaults()
   }
+}
 
-  func setFromDefaults() {
-    if let picturePath = Defaults.picturePath {
-      if let fileURL = parseURL(path: picturePath) {
-        if Defaults.setOnlyOnce {
-          // check if we have set this path already
-          // this allows the user to change the wallpaper without us overwriting it
-          if Defaults.lastPath != Defaults.picturePath {
-            setAllDesktopImages(url: fileURL)
+func setFromDefaults() {
+  if let picturePath = Defaults.picturePath {
+    if let fileURL = parseURL(path: picturePath) {
+      if #available(macOS 10.15, *) {
+        // compare check sum when present
+        if let sha256 = Defaults.sha256 {
+          if sha256.lowercased() != fileURL.data?.sha256.lowercased() {
+            errprint("sha256 checksum doesn't match")
+            exit(9)
           }
-        } else {
-          setAllDesktopImages(url: fileURL)
+        } else if let sha1 = Defaults.sha1 {
+          if sha1.lowercased() != fileURL.data?.sha1.lowercased() {
+            errprint("sha1 checksum doesn't match")
+            exit(9)
+          }
+        } else if let md5 = Defaults.md5 {
+          if md5.lowercased() != fileURL.data?.md5.lowercased() {
+            errprint("md5 checksum doesn't match")
+            exit(9)
+          }
         }
       }
-    }
 
-    if let color = Defaults.color,
-       let parsedColor = colorFromHex(hexString: color) {
-      setFillColor(color: parsedColor)
-    }
 
-    setImageScaling(Defaults.scale)
+      if Defaults.setOnlyOnce {
+        // check if we have set this path already
+        // this allows the user to change the wallpaper without us overwriting it
+        if Defaults.lastURL != Defaults.picturePath && Defaults.lastPath != Defaults.picturePath {
+
+          if let colorString = Defaults.color,
+             let color = colorFromHex(hexString: colorString) {
+            setFillColor(color: color)
+          }
+
+          setImageScaling(Defaults.scale)
+
+          setAllDesktopImages(url: fileURL)
+        }
+      } else {
+        if let color = Defaults.color,
+           let parsedColor = colorFromHex(hexString: color) {
+          setFillColor(color: parsedColor)
+        }
+
+        setImageScaling(Defaults.scale)
+
+        setAllDesktopImages(url: fileURL)
+      }
+    }
   }
 }
 
@@ -428,8 +474,12 @@ struct Defaults {
   static let scaleKey = "scale"
   static let setOnlyOnceKey = "setOnlyOnce"
   static let lastPathKey = "lastPath"
+  static let lastURLKey = "lastURL"
   static let lastSetDateKey = "lastSetDate"
   static let respectUserChangeKey = "respectUserChange"
+  static let md5Key = "md5"
+  static let sha1Key = "sha1"
+  static let sha256Key = "sha256"
 
   static var picturePath: String? {
     defaults.string(forKey: picturePathKey)
@@ -455,6 +505,11 @@ struct Defaults {
     set { defaults.set(newValue, forKey: lastPathKey) }
   }
 
+  static var lastURL: String? {
+    get { defaults.string(forKey: lastURLKey) }
+    set { defaults.set(newValue, forKey: lastURLKey) }
+  }
+
   static var lastSetDate: Date? {
     get { defaults.object(forKey: lastSetDateKey) as? Date }
     set { defaults.set(newValue, forKey: lastSetDateKey) }
@@ -462,6 +517,61 @@ struct Defaults {
 
   static var respectUserChange: Bool {
     defaults.bool(forKey: respectUserChangeKey)
+  }
+
+  static var md5: String? {
+    defaults.string(forKey: md5Key)
+  }
+
+  static var sha1: String? {
+    defaults.string(forKey: sha1Key)
+  }
+
+  static var sha256: String? {
+    defaults.string(forKey: sha256Key)
+  }
+}
+
+@available(macOS 10.15, *)
+extension Digest {
+  var bytes: [UInt8] {
+    Array(makeIterator())
+  }
+
+  var data: Data {
+    Data(bytes)
+  }
+
+  var hexString: String {
+    bytes.map { String(format: "%02x", $0) }.joined()
+  }
+}
+
+extension URL {
+  var data: Data? {
+    try? Data(contentsOf: self)
+  }
+}
+
+@available(macOS 10.15, *)
+extension Data {
+  var md5: String {
+    Insecure.MD5.hash(data: self).hexString
+  }
+
+  var sha1: String {
+    Insecure.SHA1.hash(data: self).hexString
+  }
+
+  var sha256: String {
+    CryptoKit.SHA256.hash(data: self).hexString
+  }
+
+  var sha384: String {
+    CryptoKit.SHA384.hash(data: self).hexString
+  }
+  var sha512: String {
+    CryptoKit.SHA512.hash(data: self).hexString
   }
 }
 

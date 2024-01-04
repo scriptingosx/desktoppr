@@ -1,8 +1,8 @@
 # Here comes the `desktoppr`!
 
-![](https://img.shields.io/github/v/release/scriptingosx/desktoppr)&nbsp;![](https://img.shields.io/github/downloads/scriptingosx/desktoppr/latest/total)&nbsp;![](https://img.shields.io/badge/macOS-10.12%2B-success)&nbsp;![](https://img.shields.io/github/license/scriptingosx/desktoppr)
+![](https://img.shields.io/github/v/release/scriptingosx/desktoppr)&nbsp;![](https://img.shields.io/github/downloads/scriptingosx/desktoppr/latest/total)&nbsp;![](https://img.shields.io/badge/macOS-10.13%2B-success)&nbsp;![](https://img.shields.io/github/license/scriptingosx/desktoppr)
 
-I wrote a simple command line tool which can read and set the desktop picture. [Neil Martin had the brilliant idea](https://macadmins.slack.com/archives/C19MR7EM9/p1536586211000100) to call it `desktoppr`.
+A simple command line tool which can read and set the desktop picture. [Neil Martin had the brilliant idea](https://macadmins.slack.com/archives/C19MR7EM9/p1536586211000100) to call it `desktoppr`.
 
 You can read the current desktop picture with:
 

@@ -81,7 +81,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "fill"
+            argument = "fit"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
