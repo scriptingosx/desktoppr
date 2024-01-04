@@ -14,8 +14,8 @@
             filePath = "desktoppr/main.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "418"
-            endingLineNumber = "418"
+            startingLineNumber = "423"
+            endingLineNumber = "423"
             landmarkName = "setFromDefaults()"
             landmarkType = "9">
             <Actions>
@@ -101,8 +101,8 @@
             filePath = "desktoppr/main.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "448"
-            endingLineNumber = "448"
+            startingLineNumber = "453"
+            endingLineNumber = "453"
             landmarkName = "setFromDefaults()"
             landmarkType = "9">
             <Actions>
@@ -190,6 +190,21 @@
                   endingLineNumber = "448"
                   offsetFromSymbolStart = "3232">
                </Location>
+               <Location
+                  uuid = "00F01AF3-67C9-4A47-95C5-27F8E0A28975 - 2435d98e164b74ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "448"
+                  endingLineNumber = "448"
+                  offsetFromSymbolStart = "3604">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -203,8 +218,8 @@
             filePath = "desktoppr/main.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "setImageScaling(_:)"
             landmarkType = "9">
             <Actions>

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C678CB6221415F31006AA69F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678CB6121415F31006AA69F /* main.swift */; };
+		C6B327E32B46DF4F00873956 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B327E22B46DF4F00873956 /* Defaults.swift */; };
+		C6B327E62B46DF8300873956 /* Digest-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B327E52B46DF8300873956 /* Digest-Extension.swift */; };
+		C6B327E82B46DFB200873956 /* URL-Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B327E72B46DFB200873956 /* URL-Data.swift */; };
+		C6B327EA2B46DFCC00873956 /* Data-Checksums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B327E92B46DFCC00873956 /* Data-Checksums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +30,15 @@
 		C644BDC32B1E297100619F3E /* ToDo.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ToDo.markdown; sourceTree = "<group>"; };
 		C678CB5E21415F31006AA69F /* desktoppr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = desktoppr; sourceTree = BUILT_PRODUCTS_DIR; };
 		C678CB6121415F31006AA69F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C6B327DC2B46B42C00873956 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C6B327DD2B46B44100873956 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C6B327DF2B46B46400873956 /* requirements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = requirements.plist; sourceTree = "<group>"; };
+		C6B327E02B46B46B00873956 /* pkgAndNotarize.zsh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = pkgAndNotarize.zsh; sourceTree = "<group>"; };
+		C6B327E12B46B48700873956 /* examples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = examples; sourceTree = "<group>"; };
+		C6B327E22B46DF4F00873956 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		C6B327E52B46DF8300873956 /* Digest-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Digest-Extension.swift"; sourceTree = "<group>"; };
+		C6B327E72B46DFB200873956 /* URL-Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL-Data.swift"; sourceTree = "<group>"; };
+		C6B327E92B46DFCC00873956 /* Data-Checksums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data-Checksums.swift"; sourceTree = "<group>"; };
 		C6DFA08322B77A8D009E16BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,6 +57,9 @@
 			isa = PBXGroup;
 			children = (
 				C678CB6021415F31006AA69F /* desktoppr */,
+				C6B327DE2B46B45400873956 /* BuildTools */,
+				C6B327E12B46B48700873956 /* examples */,
+				C6B327DB2B46B40400873956 /* Documentation */,
 				C678CB5F21415F31006AA69F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,10 +76,40 @@
 			isa = PBXGroup;
 			children = (
 				C678CB6121415F31006AA69F /* main.swift */,
+				C6B327E22B46DF4F00873956 /* Defaults.swift */,
+				C6B327E42B46DF6500873956 /* Extensions */,
 				C6DFA08322B77A8D009E16BE /* Info.plist */,
 				C644BDC32B1E297100619F3E /* ToDo.markdown */,
 			);
 			path = desktoppr;
+			sourceTree = "<group>";
+		};
+		C6B327DB2B46B40400873956 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				C6B327DD2B46B44100873956 /* LICENSE */,
+				C6B327DC2B46B42C00873956 /* README.md */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+		C6B327DE2B46B45400873956 /* BuildTools */ = {
+			isa = PBXGroup;
+			children = (
+				C6B327DF2B46B46400873956 /* requirements.plist */,
+				C6B327E02B46B46B00873956 /* pkgAndNotarize.zsh */,
+			);
+			name = BuildTools;
+			sourceTree = "<group>";
+		};
+		C6B327E42B46DF6500873956 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C6B327E52B46DF8300873956 /* Digest-Extension.swift */,
+				C6B327E72B46DFB200873956 /* URL-Data.swift */,
+				C6B327E92B46DFCC00873956 /* Data-Checksums.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,7 +141,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "Scripting OS X";
 				TargetAttributes = {
 					C678CB5D21415F31006AA69F = {
@@ -140,7 +186,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print BuildNumber\" \"$SRCROOT/desktoppr/Info.plist\")\n\nnewBuildNumber=$(($buildNumber + 1))\n\n/usr/libexec/PlistBuddy -c \"Set :BuildNumber $newBuildNumber\" \"$SRCROOT/desktoppr/Info.plist\"\n";
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print BuildNumber\" \"$SRCROOT/desktoppr/Info.plist\")\n\nnewBuildNumber=$(($buildNumber + 1))\n\n/usr/libexec/PlistBuddy -c \"Set :BuildNumber $newBuildNumber\" \"$SRCROOT/desktoppr/Info.plist\"\nxcrun agvtool new-version $newBuildNumber\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -151,6 +197,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C678CB6221415F31006AA69F /* main.swift in Sources */,
+				C6B327E32B46DF4F00873956 /* Defaults.swift in Sources */,
+				C6B327EA2B46DFCC00873956 /* Data-Checksums.swift in Sources */,
+				C6B327E62B46DF8300873956 /* Digest-Extension.swift in Sources */,
+				C6B327E82B46DFB200873956 /* URL-Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +212,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -194,7 +245,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 0.2;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DSTROOT = $SRCROOT/build/pkgroot;
@@ -233,6 +283,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -265,7 +316,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 0.2;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DSTROOT = $SRCROOT/build/pkgroot;
@@ -297,10 +347,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 213;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = JME5BW3F3R;
 				ENABLE_HARDENED_RUNTIME = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 0.5b;
 				PRODUCT_BUNDLE_IDENTIFIER = com.scriptingosx.desktoppr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -313,10 +365,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 213;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = JME5BW3F3R;
 				ENABLE_HARDENED_RUNTIME = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 0.5b;
 				PRODUCT_BUNDLE_IDENTIFIER = com.scriptingosx.desktoppr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

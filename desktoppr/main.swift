@@ -22,7 +22,7 @@ import Foundation
 import AppKit
 import CryptoKit
 
-let version = "0.5"
+let version = "0.5b"
 
 enum ScreenOption : Equatable {
   case all
@@ -55,6 +55,11 @@ desktoppr: a tool to set the desktop picture
          color:      provide a hex color string (000000 to FFFFFF) for the background
          scale:      fill | stretch | center | fit
                      determines how the image is scaled to the screen
+
+         manage:     read settings from com.scritpingosx.desktoppr preference domain
+                     see documentation for details
+
+         https://github.com/scriptingosx/desktoppr
 """)
 }
 
@@ -465,116 +470,6 @@ func setFromDefaults() {
     }
   }
 }
-
-struct Defaults {
-  static let defaults = UserDefaults.standard
-
-  static let picturePathKey = "picture"
-  static let colorKey = "color"
-  static let scaleKey = "scale"
-  static let setOnlyOnceKey = "setOnlyOnce"
-  static let lastPathKey = "lastPath"
-  static let lastURLKey = "lastURL"
-  static let lastSetDateKey = "lastSetDate"
-  static let respectUserChangeKey = "respectUserChange"
-  static let md5Key = "md5"
-  static let sha1Key = "sha1"
-  static let sha256Key = "sha256"
-
-  static var picturePath: String? {
-    defaults.string(forKey: picturePathKey)
-  }
-
-  static var color: String? {
-    defaults.string(forKey: colorKey)
-  }
-
-  static var scale: ScaleOption {
-    guard let scale = defaults.string(forKey: scaleKey),
-          let scaleOption = ScaleOption(rawValue: scale)
-    else { return .fill }
-    return scaleOption
-  }
-
-  static var setOnlyOnce: Bool {
-    defaults.bool(forKey: setOnlyOnceKey)
-  }
-
-  static var lastPath: String? {
-    get { defaults.string(forKey: lastPathKey) }
-    set { defaults.set(newValue, forKey: lastPathKey) }
-  }
-
-  static var lastURL: String? {
-    get { defaults.string(forKey: lastURLKey) }
-    set { defaults.set(newValue, forKey: lastURLKey) }
-  }
-
-  static var lastSetDate: Date? {
-    get { defaults.object(forKey: lastSetDateKey) as? Date }
-    set { defaults.set(newValue, forKey: lastSetDateKey) }
-  }
-
-  static var respectUserChange: Bool {
-    defaults.bool(forKey: respectUserChangeKey)
-  }
-
-  static var md5: String? {
-    defaults.string(forKey: md5Key)
-  }
-
-  static var sha1: String? {
-    defaults.string(forKey: sha1Key)
-  }
-
-  static var sha256: String? {
-    defaults.string(forKey: sha256Key)
-  }
-}
-
-@available(macOS 10.15, *)
-extension Digest {
-  var bytes: [UInt8] {
-    Array(makeIterator())
-  }
-
-  var data: Data {
-    Data(bytes)
-  }
-
-  var hexString: String {
-    bytes.map { String(format: "%02x", $0) }.joined()
-  }
-}
-
-extension URL {
-  var data: Data? {
-    try? Data(contentsOf: self)
-  }
-}
-
-@available(macOS 10.15, *)
-extension Data {
-  var md5: String {
-    Insecure.MD5.hash(data: self).hexString
-  }
-
-  var sha1: String {
-    Insecure.SHA1.hash(data: self).hexString
-  }
-
-  var sha256: String {
-    CryptoKit.SHA256.hash(data: self).hexString
-  }
-
-  var sha384: String {
-    CryptoKit.SHA384.hash(data: self).hexString
-  }
-  var sha512: String {
-    CryptoKit.SHA512.hash(data: self).hexString
-  }
-}
-
 
 main()
 

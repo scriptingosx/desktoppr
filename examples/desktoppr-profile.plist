@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadUUID</key>
+	<string>29DB32A0-95DE-4755-AB99-5D79F3BF171D</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadOrganization</key>
+	<string>Scripting OS X</string>
+	<key>PayloadIdentifier</key>
+	<string>com.scriptingosx.desktoppr.manage</string>
+	<key>PayloadDisplayName</key>
+	<string>Desktoppr</string>
+	<key>PayloadDescription</key>
+	<string></string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	<key>PayloadEnabled</key>
+	<true/>
+	<key>PayloadRemovalDisallowed</key>
+	<true/>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDisplayName</key>
+			<string>Managed Login Items</string>
+			<key>PayloadIdentifier</key>
+			<string>com.scriptingosx.desktoppr.servicemanagement</string>
+			<key>PayloadOrganization</key>
+			<string>Scripting OS X</string>
+			<key>PayloadType</key>
+			<string>com.apple.servicemanagement</string>
+			<key>PayloadUUID</key>
+			<string>03B0BC1E-1C27-4F0D-8DBC-05E90E244925</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>Rules</key>
+			<array>
+				<dict>
+					<key>Comment</key>
+					<string>Desktoppr LaunchAgent</string>
+					<key>RuleType</key>
+					<string>BundleIdentifier</string>
+					<key>RuleValue</key>
+					<string>com.scriptingosx.desktoppr</string>
+					<key>TeamIdentifier</key>
+					<string>JME5BW3F3R</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>PayloadDisplayName</key>
+			<string>Custom Settings</string>
+			<key>PayloadIdentifier</key>
+			<string>com.scriptingosx.desktoppr.defaults</string>
+			<key>PayloadOrganization</key>
+			<string>Scripting OS X</string>
+			<key>PayloadType</key>
+			<string>com.apple.ManagedClient.preferences</string>
+			<key>PayloadUUID</key>
+			<string>68F4BEB7-D933-48AB-8C71-3D3980A767A7</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>PayloadContent</key>
+			<dict>
+				<key>com.scriptingosx.desktoppr</key>
+				<dict>
+					<key>Forced</key>
+					<array>
+						<dict>
+							<key>mcx_preference_settings</key>
+							<dict>
+								<key>picture</key>
+								<string>https://raw.githubusercontent.com/scriptingosx/desktoppr/main/examples/BoringBlueDesktop.png</string>
+								<key>setOnlyOnce</key>
+								<true/>
+								<key>color</key>
+								<string>3333FF</string>
+								<key>scale</key>
+								<string>stretch</string>
+								<key>sha1</key>
+								<string>e2ce5c6be03aff820b36ba1be5dde785d0dbffb188685aae99e0b3d680c56df4</string>
+							</dict>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
