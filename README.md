@@ -84,7 +84,7 @@ When you give a URL to an image file as the argument, `desktoppr` will download 
 $ desktoppr https://raw.githubusercontent.com/scriptingosx/desktoppr/profile/examples/BoringBlueDesktop.png
 ```
 
-The downloaded file will be stored in `~/Lubrary/Application Support/desktoppr/`.
+The downloaded file will be stored in `~/Library/Application Support/desktoppr/`.
 
 When the download fails, the wallpaper will not be changed. If the downloaded file is not an image file, the wallpaper will revert to the system default.
 
