@@ -6,7 +6,13 @@ A simple command line tool which can read and set the desktop picture/wallpaper.
 
 Note: Apple used to call the macOS background image 'desktop picture' until macOS 13 Ventura, when they changed to be the same as in iOS: 'wallpaper'. This documentation might use either term.
 
-## Getting the current desktop picture/wallpaper
+I have written a few blog posts that describe different use strategies for setting a desktop picture:
+
+- [Using desktoppr in a managed environment](https://scriptingosx.com/2024/01/using-desktoppr-in-a-managed-environment/)
+- [Strategies to using desktoppr](https://scriptingosx.com/2020/03/strategies-to-using-desktoppr/)
+- [Random Desktop Background with desktoppr](https://scriptingosx.com/2020/04/random-desktop-background-color-with-desktoppr/)
+
+## Getting and setting the current desktop picture/wallpaper
 
 You can read the current desktop picture/wallpaper with:
 
@@ -66,7 +72,21 @@ $ desktoppr color FFFFFF      # white background
 $ desktoppr color FF0000      # red background
 ```
 
+Setting the wallpaper, scale and/or color are separate commands.
+
 Note: setting the background color does not work in macOS 14.x. See [issue #22](https://github.com/scriptingosx/desktoppr/issues/22).
+
+## Downloading the wallpaper image file
+
+When you give a URL to an image file as the argument, `desktoppr` will download the file from the URL and set it as the wallpaper.
+
+```
+$ desktoppr https://raw.githubusercontent.com/scriptingosx/desktoppr/profile/examples/BoringBlueDesktop.png
+```
+
+The downloaded file will be stored in `~/Lubrary/Application Support/desktoppr/`.
+
+When the download fails, the wallpaper will not be changed. If the downloaded file is not an image file, the wallpaper will revert to the system default.
 
 ## desktoppr in scripts
 
@@ -76,15 +96,15 @@ When you want to run it from a script it is safest to include the entire path to
 /usr/local/bin/desktoppr "/Library/Desktop Pictures/BoringBlueDesktop.png"
 ```
 
-Since the `desktoppr` tool also sets user preferences, you still need to pay attention that it runs as the user. A LaunchAgent or a solution like [`outset`](https://github.com/macadmins/outset) is a good choice to manage this. Alternatively, you can [run the command as the current user from a root script](https://scriptingosx.com/2020/08/running-a-command-as-another-user/).
+Since the `desktoppr` tool sets user preferences, you still need to pay attention that it runs as the user. A LaunchAgent or a solution like [`outset`](https://github.com/macadmins/outset) is a good choice to manage this. Alternatively, you can [run the command as the current user from a root script](https://scriptingosx.com/2020/08/running-a-command-as-another-user/).
 
-## Managing the desktop picture/wallpaper with desktoppr
+## Managing the desktop picture/wallpaper with a profile
 
 When you run `desktoppr` with the `manage` verb, it will read the settings from the `com.scriptingosx.desktoppr` preference domain. You can set these settings with the `defaults` command or, preferably, by pushing a configuration profile from an MDM server. 
 
 The idea is to run `desktoppr manage` with a LaunchAgent plist at login and/or at regular intervals. You can find [a sample LaunchAgent plist here](examples/com.scriptingosx.desktopprmanage.plist). The sample LaunchAgent will run `desktoppr manage` at login and every three hours (10800 sec). You can build a pkg that installs the desktoppr binary, the LaunchAgent plist and an image file very early in the deployment workflow and then desktoppr sets the desktop background when the user reaches the desktop for the first time.
 
-For Ventura and higher, binaries and applications run by LaunchAgents need to be approved with a `com.apple.servicemanagement` profile so they appear as managed in the login items section in Settings.app. The above sample configuration profile contains those settings, as well.
+For Ventura and higher, binaries and applications run by LaunchAgents need to be approved with a `com.apple.servicemanagement` profile so they appear as managed in the login items section in Settings.app. The [sample configuration profile](examples/desktoppr-profile.mobileconfig) contains those settings, as well.
 
 
 desktoppr uses the following keys:
@@ -123,7 +143,3 @@ You can get the code for `desktoppr` on my Github page and an installer in the [
 
 The tool requires the [Swift 5 Runtime support for command line tools](https://support.apple.com/kb/DL1998) when you install it on versions of macOS older than 10.14.4.
 
-I have written a few blog posts that describe different use strategies for setting a desktop picture:
-
-- [Strategies to using desktoppr](https://scriptingosx.com/2020/03/strategies-to-using-desktoppr/)
-- [Random Desktop Background with  desktoppr](https://scriptingosx.com/2020/04/random-desktop-background-color-with-desktoppr/)

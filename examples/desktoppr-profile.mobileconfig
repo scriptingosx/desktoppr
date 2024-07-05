@@ -81,7 +81,7 @@
 								<string>3333FF</string>
 								<key>scale</key>
 								<string>stretch</string>
-								<key>sha1</key>
+								<key>sha256</key>
 								<string>e2ce5c6be03aff820b36ba1be5dde785d0dbffb188685aae99e0b3d680c56df4</string>
 							</dict>
 						</dict>
