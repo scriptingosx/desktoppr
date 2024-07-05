@@ -2,15 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BuildNumber</key>
-	<integer>111</integer>
 	<key>CFBundleIdentifier</key>
 	<string>com.scriptingosx.desktoppr</string>
 	<key>CFBundleName</key>
 	<string>desktoppr</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.4</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>0.4</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 </dict>
 </plist>

@@ -3,4 +3,269 @@
    uuid = "6EB3A0BC-F3AB-4846-AFE0-1108248CE3D2"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74C037D7-5214-4A62-9249-8729604D9C18"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "Yes"
+            filePath = "desktoppr/main.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "423"
+            endingLineNumber = "423"
+            landmarkName = "setFromDefaults()"
+            landmarkType = "9">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.Log">
+                  <ActionContent
+                     message = "setFromDefaults()"
+                     conveyanceType = "0">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+            <Locations>
+               <Location
+                  uuid = "74C037D7-5214-4A62-9249-8729604D9C18 - 455c40f386853e8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "345"
+                  endingLineNumber = "345">
+               </Location>
+               <Location
+                  uuid = "74C037D7-5214-4A62-9249-8729604D9C18 - 455c40f3868536c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "349"
+                  endingLineNumber = "349">
+               </Location>
+               <Location
+                  uuid = "74C037D7-5214-4A62-9249-8729604D9C18 - 455c40f38685cc1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "352"
+                  endingLineNumber = "352">
+               </Location>
+               <Location
+                  uuid = "74C037D7-5214-4A62-9249-8729604D9C18 - 455c40f38685abc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "397"
+                  endingLineNumber = "397">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "00F01AF3-67C9-4A47-95C5-27F8E0A28975"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "Yes"
+            filePath = "desktoppr/main.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "453"
+            endingLineNumber = "453"
+            landmarkName = "setFromDefaults()"
+            landmarkType = "9">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.Log">
+                  <ActionContent
+                     message = "Setting color to @colorString@"
+                     conveyanceType = "0">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+            <Locations>
+               <Location
+                  uuid = "00F01AF3-67C9-4A47-95C5-27F8E0A28975 - 2435d98e164b710b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "422"
+                  endingLineNumber = "422">
+               </Location>
+               <Location
+                  uuid = "00F01AF3-67C9-4A47-95C5-27F8E0A28975 - 2435d98e164b72bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "434"
+                  endingLineNumber = "434">
+               </Location>
+               <Location
+                  uuid = "00F01AF3-67C9-4A47-95C5-27F8E0A28975 - 2435d98e164b72fd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "432"
+                  endingLineNumber = "432">
+               </Location>
+               <Location
+                  uuid = "00F01AF3-67C9-4A47-95C5-27F8E0A28975 - 2435d98e164b74c2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "447"
+                  endingLineNumber = "447">
+               </Location>
+               <Location
+                  uuid = "00F01AF3-67C9-4A47-95C5-27F8E0A28975 - 2435d98e164b74ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "448"
+                  endingLineNumber = "448">
+               </Location>
+               <Location
+                  uuid = "00F01AF3-67C9-4A47-95C5-27F8E0A28975 - 2435d98e164b74ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setFromDefaults() -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "448"
+                  endingLineNumber = "448">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4A7655CB-6B39-4D7C-BD1B-01A35BE6DAD7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "Yes"
+            filePath = "desktoppr/main.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "setImageScaling(_:)"
+            landmarkType = "9">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.Log">
+                  <ActionContent
+                     message = "Set scale to @scale.rawValue@"
+                     conveyanceType = "0">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+            <Locations>
+               <Location
+                  uuid = "4A7655CB-6B39-4D7C-BD1B-01A35BE6DAD7 - dda99766c8863479"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setImageScaling(desktoppr.ScaleOption) -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252">
+               </Location>
+               <Location
+                  uuid = "4A7655CB-6B39-4D7C-BD1B-01A35BE6DAD7 - dda99766c886326e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setImageScaling(desktoppr.ScaleOption) -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "267"
+                  endingLineNumber = "267">
+               </Location>
+               <Location
+                  uuid = "4A7655CB-6B39-4D7C-BD1B-01A35BE6DAD7 - dda99766c8863289"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "desktoppr.setImageScaling(desktoppr.ScaleOption) -&gt; ()"
+                  moduleName = "desktoppr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/armin/BTSync/Work/Projects/desktoppr/desktoppr/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "268"
+                  endingLineNumber = "268">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

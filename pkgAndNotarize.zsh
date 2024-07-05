@@ -1,120 +1,151 @@
 #!/bin/zsh
 
-signature="Developer ID Installer: Armin Briegel (JME5BW3F3R)"
-dev_team="JME5BW3F3R" # asc-provider
-dev_account="developer@scriptingosx.com"
-dev_keychain_label="Developer-altool"
+#  pkgAndNotarize.sh
+#  desktoppr
+#
+#  Created by Armin Briegel on 2023-11-21.
+#  
 
-projectdir=$(dirname $0)
+# data from build settings
+pkg_name="$PRODUCT_NAME"
+identifier="$PRODUCT_BUNDLE_IDENTIFIER"
+version="$MARKETING_VERSION"
+build_number="$CURRENT_PROJECT_VERSION"
+min_os_version="$MACOSX_DEPLOYMENT_TARGET"
 
-builddir="$projectdir/build"
-pkgroot="$builddir/pkgroot"
-infoplist="$projectdir/desktoppr/Info.plist"
-
-plistbuddy="/usr/libexec/PlistBuddy"
-
-
-# functions
-requeststatus() { # $1: requestUUID
-    requestUUID=${1?:"need a request UUID"}
-    req_status=$(xcrun altool --notarization-info "$requestUUID" \
-                          --username "$dev_account" \
-                          --password "@keychain:$dev_keychain_label" 2>&1 | awk -F ': ' '/Status:/ { print $2; }' )
-    echo "$req_status"
-}
-
-notarizefile() { # $1: path to file to notarize, $2: identifier
-    filepath=${1:?"need a filepath"}
-    identifier=${2:?"need an identifier"}
-    
-    # upload file
-    echo "## uploading $filepath for notarization"
-    requestUUID=$(xcrun altool --notarize-app \
-                               --primary-bundle-id "$identifier" \
-                               --username "$dev_account" \
-                               --password "@keychain:$dev_keychain_label" \
-                               --asc-provider "$dev_team" \
-                               --file "$filepath" 2>&1 | awk '/RequestUUID/ { print $NF; }')
-                               
-    echo "Notarization RequestUUID: $requestUUID"
-    
-    if [[ $requestUUID == "" ]]; then 
-        echo "could not upload for notarization"
-        exit 1
-    fi
-        
-    # wait for status to be not "in progress" any more
-    request_status="in progress"
-    while [[ "$request_status" == "in progress" ]]; do
-        echo -n "waiting... "
-        sleep 10
-        request_status=$(requeststatus "$requestUUID")
-        echo "$request_status"
-    done
-    
-    if [[ $request_status != "success" ]]; then
-        echo "## could not notarize $filepath"
-        xcrun altool --notarization-info "$requestUUID" \
-                     --username "$dev_account" \
-                     --password "@keychain:$dev_keychain_label"
-        exit 1
-    fi
-    
-}
-
-
-# build clean install
-
-echo "## building with Xcode"
-xcodebuild clean install -quiet
-
-if [[ ! -d $pkgroot ]]; then
-    echo "couldn't find pkgroot $pkgroot"
-    exit 1
+build_dir="$BUILD_DIR"
+if [[ ! -d $build_dir ]]; then
+    mkdir -p $build_dir
 fi
 
-# get project meta data
-if [[ ! -r $infoplist ]]; then
-    echo "cannot find Info.plist $infoplist"
+artifacts_dir="$SRCROOT/build/Artifacts"
+if [[ ! -d $artifacts_dir ]]; then
+    mkdir -p $artifacts_dir
 fi
 
-version=$($plistbuddy -c "print CFBundleVersion" "$infoplist")
-identifier=$($plistbuddy -c "print CFBundleIdentifier" "$infoplist")
-productname=$($plistbuddy -c "print CFBundleName" "$infoplist")
+logs_dir="$SRCROOT/build/Logs"
+if [[ ! -d $logs_dir ]]; then
+    mkdir -p $logs_dir
+fi
 
-pkgpath="$builddir/$productname-$version.pkg"
-componentpath="$builddir/$productname.pkg"
 
-echo "## building pkg: $pkgpath"
+component_path="${build_dir}/${pkg_name}.pkg"
+product_path="${artifacts_dir}/${pkg_name}-${version}-${build_number}.pkg"
+notary_log="${artifacts_dir}/pkg_build.log"
 
-pkgbuild --root "$pkgroot" \
-         --version "$version" \
+exec > >(tee -a "$notary_log") 2>&1
+
+# Developer ID Installer cert name
+#sign_cert="Developer ID Installer: Armin Briegel (JME5BW3F3R)"
+sign_cert=$(security find-identity -p basic -v | awk '/Developer ID Installer/ && /'$DEVELOPMENT_TEAM'/ {print $2; exit}')
+
+if [[ $sign_cert == "" ]]; then
+  echo "error: could not find Developer ID Installer identity for $DEVELOPMENT_TEAM"
+  exit 1
+fi
+
+
+echo "note: Packaging and Notarizing '$pkg_name', version: $version, build: $build_number"
+date +"%F %T"
+echo "note: Min OS Version:    $min_os_version"
+echo "note: Development Team:  $DEVELOPMENT_TEAM"
+echo "note: Installer cert ID: $sign_cert"
+echo
+
+# print environment variables
+# env | sort
+
+echo
+
+# set -x
+
+# usually use `xcodebuild -exportArchive` to get
+# the product out of the archive. However, this does not work
+# with a command line tool, so we are going direct
+# use INSTALL_ROOT when running with install
+# use ARCHIVE_PATH after archiving
+if [[ $ARCHIVE_PATH != "" ]]; then
+  pkg_root="$ARCHIVE_PATH/Products/"
+else
+  pkg_root="$INSTALL_ROOT"
+fi
+
+#scripts_dir="$SRCROOT/Setup Manager/Package Resources/scripts"
+
+# create the component pkg
+echo "note: building component: $component_path"
+
+if ! pkgbuild --root "$pkg_root" \
          --identifier "$identifier" \
-         --sign "Developer ID Installer: Armin Briegel (JME5BW3F3R)" \
-         "$componentpath"
+         --version "$version-$build_number" \
+         --install-location "/" \
+         --min-os-version "$min_os_version" \
+         --compression legacy \
+         "$component_path"
+then
+  echo "error: error build component"
+  exit 2
+fi
 
-productbuild --package "$componentpath" \
-             --product "$projectdir/requirements.plist" \
-             --sign "Developer ID Installer: Armin Briegel (JME5BW3F3R)" \
-             "$pkgpath"
+echo
 
-# upload for notarization
-notarizefile "$pkgpath" "$identifier"
+# create the distribution pkg
+echo "note: building distribution pkg: $product_path"
 
+if ! productbuild --package "$component_path" \
+                  --identifier "$identifier" \
+                  --version "$version-$build_number" \
+                  --sign "$sign_cert" \
+                  "$product_path"
+then
+  echo "error: error building distribution archive"
+  exit 3
+fi
 
-# staple result
-echo "## Stapling $pkgpath"
-xcrun stapler staple "$pkgpath"
+echo
+
+# clean up component pkg
+rm "$component_path"
+
+# only continue when development team is me
+if [[ $DEVELOPMENT_TEAM != "JME5BW3F3R" ]]; then
+  exit 0
+fi
+
+# profile name used with `notarytool --store-credentials`
+credential_profile="notary-scriptingosx"
+
+# notarize
+echo "note: submitting for notarization"
+xcrun notarytool submit "$product_path" \
+                 --keychain-profile "$credential_profile" \
+                 --wait
+
+echo
+
+# staple
+xcrun stapler staple "$product_path"
+
+echo
 
 # also create a zip archive
-zippath="$builddir/$productname-$version.zip"
+zippath="$artifacts_dir/$pkg_name-$version-$build_number.zip"
+echo "note: zip archive: $zippath"
 zip "$zippath" -j "$pkgroot"/usr/local/bin/desktoppr
 
+echo "note: notarizing zip archive"
 # upload zip for notarization
-notarizefile "$zippath" "$identifier"
+xcrun notarytool submit "$zippath"  \
+                 --keychain-profile "$credential_profile" \
+                 --wait
 
+echo
 echo '## Done!'
 
+# notify
+osascript -e "display notification \"$pkg_name ($version, $build_number) built and notarized\""
+
+# reveal in Finder
+open -R "$product_path"
+
 exit 0
-
-

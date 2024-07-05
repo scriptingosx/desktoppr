@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1130"
-   version = "1.3">
+   LastUpgradeVersion = "1510"
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -62,11 +62,27 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "scale"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/System/Library/CoreServices/DefaultDesktop.heic"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "https://github.com/scriptingosx/desktoppr/blob/main/examples/BoringBlueDesktop.png?raw=true"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "https://512pixels.net/downloads/macos-wallpapers/10-0_10.1.png"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "manage"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "fill"
-            isEnabled = "YES">
+            argument = "fit"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>
@@ -93,5 +109,24 @@
    <ArchiveAction
       buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#exec &gt; $SRCROOT/notary.log 2&gt;&amp;1&#10;&#10;scriptPath=&quot;$SRCROOT/pkgAndNotarize.zsh&quot;&#10;&#10;echo &quot;Archive post-action: pkg and notarize&quot;&#10;if [ -x &quot;$scriptPath&quot; ]; then &#10;  &quot;$scriptPath&quot;&#10;else&#10;  echo &quot;could not run &apos;$scriptPath&apos;&quot;&#10;fi&#10;"
+               shellToInvoke = "/bin/sh">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "C678CB5D21415F31006AA69F"
+                     BuildableName = "desktoppr"
+                     BlueprintName = "desktoppr"
+                     ReferencedContainer = "container:desktoppr.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
    </ArchiveAction>
 </Scheme>
