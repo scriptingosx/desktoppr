@@ -22,7 +22,7 @@ import Foundation
 import AppKit
 import CryptoKit
 
-let version = "0.5b"
+let version = "0.5"
 
 enum ScreenOption : Equatable {
   case all
