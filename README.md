@@ -9,6 +9,7 @@ Note: Apple used to call the macOS background image 'desktop picture' until macO
 I have written a few blog posts that describe different use strategies for setting a desktop picture:
 
 - [Using desktoppr in a managed environment](https://scriptingosx.com/2024/01/using-desktoppr-in-a-managed-environment/)
+- [Building a LaunchD Installer pkg for desktoppr (and other tools)](https://scriptingosx.com/2024/07/building-a-launchd-installer-pkg-for-desktoppr-and-other-tools/)
 - [Strategies to using desktoppr](https://scriptingosx.com/2020/03/strategies-to-using-desktoppr/)
 - [Random Desktop Background with desktoppr](https://scriptingosx.com/2020/04/random-desktop-background-color-with-desktoppr/)
 
