@@ -1,0 +1,28 @@
+#!/bin/sh
+
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+label="com.scriptingosx.desktopprmanage"
+launchdPlist="/Library/LaunchAgents/${label}.plist"
+
+# do not load when target volume ($3) is not current startup volume
+if [ "$3" != "/" ]; then
+    echo "not installing on startup volume, exiting"
+    exit 0
+fi
+
+# for LaunchAgent, check if user is logged in
+# see https://scriptingosx.com/2019/09/get-current-user-in-shell-scripts-on-macos/
+
+currentUser=$(echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ { print $3 }')
+
+# don't load at loginwindow 
+if [ "$currentUser" = "loginwindow" ] || [ "$currentUser" = "_mbsetupuser" ]; then
+    echo "no user logged in, exiting"
+    exit 0
+fi
+
+uid=$(id -u "$currentUser")
+
+echo "loading $label"
+launchctl bootstrap "gui/$uid" "$launchdPlist"

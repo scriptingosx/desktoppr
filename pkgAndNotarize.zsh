@@ -70,7 +70,8 @@ else
   pkg_root="$INSTALL_ROOT"
 fi
 
-#scripts_dir="$SRCROOT/Setup Manager/Package Resources/scripts"
+# copy the finished binary to the pkg payload in the examples
+cp "$pkgroot/usr/local/bin/desktoppr" "$SRCROOT/examples/payload/usr/local/bin/"
 
 # create the component pkg
 echo "note: building component: $component_path"
