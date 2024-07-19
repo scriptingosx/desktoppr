@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>com.scriptingosx.setdesktop</string>
+	<string>com.scriptingosx.desktopprmanage</string>
 	<key>ProgramArguments</key>
 	<array>
 		<string>/usr/local/bin/desktoppr</string>
