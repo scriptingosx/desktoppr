@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# template script to build a component pkg
+
+# Permission is granted to use this code in any way you want.
+# Credit would be nice, but not obligatory.
+# Provided "as is", without warranty of any kind, express or implied.
+
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
 pkgname="DesktopprManage"
