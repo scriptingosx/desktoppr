@@ -28,6 +28,8 @@ and set the desktop picture with
 $ desktoppr "/Library/Desktop Pictures/BoringBlueDesktop.png"
 ```
 
+**Note**: The new wallpaper will only be applied, when no app is using fullscreen mode while the `desktoppr` command is run ([See](https://github.com/scriptingosx/desktoppr/issues/17)).
+
 When you have multiple displays, `desktoppr` will list all desktop pictures:
 
 ```
