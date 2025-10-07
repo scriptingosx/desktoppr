@@ -28,6 +28,12 @@ and set the desktop picture with
 $ desktoppr "/Library/Desktop Pictures/BoringBlueDesktop.png"
 ```
 
+When the path is a path to a folder, the system will rotate the wallpaper through all the image files in that folder. The default rotation time is 30 minutes and can be changed in the Wallpaper settings pane. `desktoppr` cannot change the frequency.
+
+```
+$ desktoppr "/Library/Desktop Pictures/My Wallpapers/"
+```
+
 When you have multiple displays, `desktoppr` will list all desktop pictures:
 
 ```
@@ -75,7 +81,27 @@ $ desktoppr color FF0000      # red background
 
 Setting the wallpaper, scale and/or color are separate commands.
 
-Note: setting the background color does not work in macOS 14.x. See [issue #22](https://github.com/scriptingosx/desktoppr/issues/22).
+Note: setting the background color does not work in macOS 14.x. See [issue #22](https://github.com/scriptingosx/desktoppr/issues/22). This was fixed by Apple in macOS 15.4.
+
+## Using `desktoppr` in scripts
+
+When you run multiple `desktoppr` commands in sequence in a script, the subsequent commands might not "take." Insert a `sleep 1` command in between to allow the process managing the wallpaper to "catch up."
+
+```
+desktoppr /Library/Desktop Pictures/HotStepper.jpg
+sleep 1
+desktoppr scale fit
+sleep 1
+desktoppr color 000000
+```
+
+When you desktoppr in a script, you have to ensure that the `PATH` contains `/usr/local/bin` or include the entire path to the binary:
+
+```
+/usr/local/bin/desktoppr "/Library/Desktop Pictures/BoringBlueDesktop.png"
+```
+
+Since the `desktoppr` tool changes user space settings, you need to pay attention that it runs as the user. A LaunchAgent or a solution like [`outset`](https://github.com/macadmins/outset) is a good choice to manage this. Alternatively, you can [run the command as the current user from a root script](https://scriptingosx.com/2020/08/running-a-command-as-another-user/).
 
 ## Downloading the wallpaper image file
 
@@ -89,16 +115,6 @@ The downloaded file will be stored in `~/Library/Application Support/desktoppr/`
 
 When the download fails, the wallpaper will not be changed. If the downloaded file is not an image file, the wallpaper will revert to the system default.
 
-## desktoppr in scripts
-
-When you want to run it from a script it is safest to include the entire path to the binary:
-
-```
-/usr/local/bin/desktoppr "/Library/Desktop Pictures/BoringBlueDesktop.png"
-```
-
-Since the `desktoppr` tool sets user preferences, you still need to pay attention that it runs as the user. A LaunchAgent or a solution like [`outset`](https://github.com/macadmins/outset) is a good choice to manage this. Alternatively, you can [run the command as the current user from a root script](https://scriptingosx.com/2020/08/running-a-command-as-another-user/).
-
 ## Managing the desktop picture/wallpaper with a profile
 
 When you run `desktoppr` with the `manage` verb, it will read the settings from the `com.scriptingosx.desktoppr` preference domain. You can set these settings with the `defaults` command or, preferably, by pushing a configuration profile from an MDM server. 
@@ -108,7 +124,7 @@ The idea is to run `desktoppr manage` with a LaunchAgent plist at login and/or a
 For Ventura and higher, binaries and applications run by LaunchAgents need to be approved with a `com.apple.servicemanagement` profile so they appear as managed in the login items section in Settings.app. The [sample configuration profile](examples/desktoppr-profile.mobileconfig) contains those settings, as well.
 
 
-desktoppr uses the following keys:
+`desktoppr` uses the following profile keys:
 
 #### `picture` (type: `string`)
 
@@ -124,7 +140,7 @@ You can generate the sha256 checksum of the image file with `shasum -a 256 <file
 
 #### `color` (type: `string`)
 
-This string will be interpreted as a six-digit hex code and set as the background color. (Note: setting the color [is broken on macOS 14.x](https://github.com/scriptingosx/desktoppr/issues/22).)
+This string will be interpreted as a six-digit hex code and set as the background color.
 
 #### `scale` (type: `string`)
 
