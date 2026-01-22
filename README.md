@@ -46,7 +46,7 @@ $ desktoppr
 When you pass a file `desktoppr` will set it as the desktop picture for _all_ screens:
 
 ```
-$ desktoppr /Library/Desktop Pictures/NaahNananah.jpg
+$ desktoppr "/Library/Desktop Pictures/NaahNananah.jpg"
 $ desktoppr
 /Library/Desktop Pictures/NaahNananah.jpg
 /Library/Desktop Pictures/NaahNananah.jpg
@@ -56,9 +56,9 @@ $ desktoppr
 You can also set the desktop for a specific screen: (index starts at zero)
 
 ```
-$ desktoppr 0 /Library/Desktop Pictures/HotStepper.jpg
-$ desktoppr 1 /Library/Desktop Pictures/LyricalGangster.jpg
-$ desktoppr 2 /Library/Desktop Pictures/MrOfficer.jpg
+$ desktoppr 0 "/Library/Desktop Pictures/HotStepper.jpg"
+$ desktoppr 1 "/Library/Desktop Pictures/LyricalGangster.jpg"
+$ desktoppr 2 "/Library/Desktop Pictures/MrOfficer.jpg"
 ```
 
 `desktoppr` can also control the image scaling and background color for the desktop picture.
@@ -88,7 +88,7 @@ Note: setting the background color does not work in macOS 14.x. See [issue #22](
 When you run multiple `desktoppr` commands in sequence in a script, the subsequent commands might not "take." Insert a `sleep 1` command in between to allow the process managing the wallpaper to "catch up."
 
 ```
-desktoppr /Library/Desktop Pictures/HotStepper.jpg
+desktoppr "/Library/Desktop Pictures/HotStepper.jpg"
 sleep 1
 desktoppr scale fit
 sleep 1
