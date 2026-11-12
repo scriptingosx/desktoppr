@@ -43,23 +43,28 @@ enum ScaleOption : String {
 
 func usage() {
   errprint("""
-desktoppr: a tool to set the desktop picture
-  usage: desktoppr [all|main|N] [/path/to/image]
-         all:        all screens (default)
-         main:       main screen
-         N: (number) screen index
-         if a valid file path is given it will be set as the desktop picture,
-         otherwise the path to the current desktop picture is printed
+desktoppr: a tool to manage the desktop picture.
 
-         The next two values will be set for _all_ screens.
-         color:      provide a hex color string (000000 to FFFFFF) for the background
-         scale:      fill | stretch | center | fit
-                     determines how the image is scaled to the screen
+usage(1): desktoppr [all|main|N] [/path/to/image]
+          all:   all screens (default)
+          main:  main screen
+          N:     screen index (number) 
+          If a valid file path is given it will be set as the desktop picture,
+          otherwise the path to the current desktop picture is printed.
 
-         manage:     read settings from com.scritpingosx.desktoppr preference domain
-                     see documentation for details
+usage(2): desktoppr color [hex-color-string]
+          Gets the background color, or sets it if a hex color string (000000 to FFFFFF) is provided.
+          Applies to _all_ screens.
 
-         https://github.com/scriptingosx/desktoppr
+usage(3): desktoppr scale [fill|stretch|center|fit]
+          Gets the background image scaling, or sets it if a scaling value is provided.
+          Applies to _all_ screens.
+ 
+usage(4): desktoppr manage
+          Read settings from com.scritpingosx.desktoppr preference domain.
+          See documentation for details.
+
+Source: https://github.com/scriptingosx/desktoppr
 """)
 }
 
