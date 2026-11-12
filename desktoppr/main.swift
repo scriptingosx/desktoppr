@@ -56,7 +56,7 @@ desktoppr: a tool to set the desktop picture
          scale:      fill | stretch | center | fit
                      determines how the image is scaled to the screen
 
-         manage:     read settings from com.scritpingosx.desktoppr preference domain
+         manage:     read settings from com.scriptingosx.desktoppr preference domain
                      see documentation for details
 
          https://github.com/scriptingosx/desktoppr
