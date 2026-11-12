@@ -61,7 +61,7 @@ usage(3): desktoppr scale [fill|stretch|center|fit]
           Applies to _all_ screens.
  
 usage(4): desktoppr manage
-          Read settings from com.scritpingosx.desktoppr preference domain.
+          Read settings from com.scriptingosx.desktoppr preference domain.
           See documentation for details.
 
 Source: https://github.com/scriptingosx/desktoppr
